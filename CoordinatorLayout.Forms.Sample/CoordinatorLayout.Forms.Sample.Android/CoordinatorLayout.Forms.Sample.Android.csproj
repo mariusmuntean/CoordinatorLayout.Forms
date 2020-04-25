@@ -14,8 +14,7 @@
         <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
         <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
         <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-        <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
-        <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
         <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -47,13 +46,15 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="Xamarin.AndroidX.Browser" Version="1.2.0" />
+        <PackageReference Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="2.2.0" />
         <PackageReference Include="Xamarin.Forms" Version="4.5.0.657" />
-        <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
-        <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.3" />
-        <PackageReference Include="Xamarin.Android.Support.v4" Version="28.0.0.3" />
-        <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="28.0.0.3" />
-        <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="28.0.0.3" />
-    </ItemGroup>
+        <PackageReference Include="Xamarin.Google.Android.Material" Version="1.0.0" />
+        <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.1.0" />
+        <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4" Version="1.0.0" />
+        <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0" />
+        <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.1.0" />
+    <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.4" /></ItemGroup>
     <ItemGroup>
         <Compile Include="MainActivity.cs" />
         <Compile Include="Resources\Resource.Designer.cs" />
@@ -72,7 +73,7 @@
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\CoordinatorLayout.Forms.Sample\CoordinatorLayout.Forms.Sample.csproj">
-            <Project>{2B866319-198D-4BEE-88AF-69BE467ECF5C}</Project>
+            <Project>{37B572BA-E233-43E3-A876-7E7A36CA0677}</Project>
             <Name>CoordinatorLayout.Forms.Sample</Name>
         </ProjectReference>
     </ItemGroup>

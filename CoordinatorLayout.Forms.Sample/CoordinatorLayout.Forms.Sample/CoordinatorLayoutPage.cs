@@ -6,11 +6,19 @@ namespace CoordinatorLayout.Forms.Sample
     public class CoordinatorLayoutPage : ContentPage
     {
         private RelativeLayout _relativeLayout;
-        private BoxView _topView;
-        private BoxView _bottomView;
+        private View _topView;
+        private ScrollView _bottomView;
+
+        private double _proportionalTopViewHeightMin = 0.1d;
+        private double _proportionalTopViewHeightMax = 0.5d;
+        private double _proportionalTopViewHeightInitial = 0.0d;
+        private double _proportionalTopViewHeight = 0.0d;
 
         public CoordinatorLayoutPage()
         {
+            _proportionalTopViewHeightInitial = _proportionalTopViewHeightMin;
+            _proportionalTopViewHeight = _proportionalTopViewHeightInitial;
+
             _relativeLayout = new RelativeLayout();
 
             _topView = new BoxView() {Color = Color.DodgerBlue};
@@ -18,10 +26,10 @@ namespace CoordinatorLayout.Forms.Sample
                 Constraint.Constant(0.0d),
                 Constraint.Constant(0.0d),
                 Constraint.RelativeToParent(parent => parent.Width),
-                Constraint.FromExpression(() => 100.0d + _panTotal)
+                TopViewHeightConstraint()
             );
 
-            _bottomView = new BoxView() {Color = System.Drawing.Color.Orchid};
+            _bottomView = GetBottomView();
             _relativeLayout.Children.Add(_bottomView,
                 Constraint.Constant(0.0d),
                 Constraint.RelativeToView(_topView, (parent, otherView) => otherView.Height),
@@ -31,36 +39,169 @@ namespace CoordinatorLayout.Forms.Sample
 
             Content = _relativeLayout;
 
-            var panGestureRecognizer = new PanGestureRecognizer();
-            panGestureRecognizer.PanUpdated += PanGestureRecognizerOnPanUpdated;
-            _relativeLayout.GestureRecognizers.Add(panGestureRecognizer);
+            // _topViewPanGestureRecognizer = new PanGestureRecognizer();
+            // _topViewPanGestureRecognizer.PanUpdated += TopViewPanGestureRecognizerOnPanUpdated;
+            // _topView.GestureRecognizers.Add(_topViewPanGestureRecognizer);
+
+            _bottomViewPanGestureRecognizer = new PanGestureRecognizer();
+            _bottomViewPanGestureRecognizer.PanUpdated += BottomViewPanGestureRecognizerOnPanUpdated;
+            // _bottomView.GestureRecognizers.Add(_bottomViewPanGestureRecognizer);
+            _relativeLayout.GestureRecognizers.Add(_bottomViewPanGestureRecognizer);
+        }
+
+        private Constraint TopViewHeightConstraint()
+        {
+            return Constraint.RelativeToParent(parent =>
+            {
+                var topViewHeight = Math.Min(parent.Height * _proportionalTopViewHeightMax, Math.Max(parent.Height * _proportionalTopViewHeightMin, _panTotal));
+                _proportionalTopViewHeight = topViewHeight / parent.Height;
+                OnTopviewHeightChanged();
+                return topViewHeight;
+            });
+        }
+
+        private void OnTopviewHeightChanged()
+        {
         }
 
         private double _previousPanDistance = 0.0d;
-        private double _panTotal = 0.0d;
-        private double _initialPanTotal = 0.0d;
 
-        private void PanGestureRecognizerOnPanUpdated(object sender, PanUpdatedEventArgs e)
+        private double _panTotal = 0.0d;
+
+        private PanGestureRecognizer _topViewPanGestureRecognizer;
+        private PanGestureRecognizer _bottomViewPanGestureRecognizer;
+
+        enum direction
+        {
+            up,
+            none,
+            down
+        }
+
+        private double _bottomViewPreviousTotalY = 0.0d;
+        private direction _bottomViewPanDirection = direction.none;
+        private double _tempPanTotal = 0.0d;
+        private double _bottomViewPanDelta = 0.0d;
+
+        private async void BottomViewPanGestureRecognizerOnPanUpdated(object sender, PanUpdatedEventArgs e)
         {
             switch (e.StatusType)
             {
                 case GestureStatus.Started:
-                    _initialPanTotal = _panTotal;
+                    _bottomViewPreviousTotalY = e.TotalY;
                     break;
                 case GestureStatus.Running:
-                    _panTotal = _initialPanTotal + e.TotalY;
+
+                    _bottomViewPanDelta = e.TotalY - _bottomViewPreviousTotalY;
+                    _bottomViewPanDirection = _bottomViewPanDelta > 0.0d ? direction.down : direction.up;
+                    _bottomViewPreviousTotalY = e.TotalY;
+
                     break;
                 case GestureStatus.Completed:
-                    _initialPanTotal = _panTotal;
                     break;
                 case GestureStatus.Canceled:
-                    _initialPanTotal = _panTotal;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
+            Console.WriteLine($"Raw tempPanTotal: {_tempPanTotal}");
+            Console.WriteLine($"Direction: {_bottomViewPanDirection}");
+
+            if (e.StatusType == GestureStatus.Running)
+            {
+                if (_bottomView.ScrollY >= 0.0d && _bottomViewPanDirection == direction.up && _proportionalTopViewHeight <= _proportionalTopViewHeightMin)
+                {
+                    var bottomViewScrollY = _bottomView.ScrollY + (-_bottomViewPanDelta);
+
+                    bottomViewScrollY = Clamp(bottomViewScrollY, 0.0d, _bottomView.Content.Height - _bottomView.Height);
+                    Console.WriteLine($"Scrolling up to: {bottomViewScrollY}");
+                    await _bottomView.ScrollToAsync(0.0d, bottomViewScrollY, false);
+                }
+                else if (_bottomView.ScrollY > 0.0d && _bottomViewPanDirection == direction.down && _proportionalTopViewHeight <= _proportionalTopViewHeightMin)
+                {
+                    var bottomViewScrollY = _bottomView.ScrollY + (-_bottomViewPanDelta);
+
+                    bottomViewScrollY = Clamp(bottomViewScrollY, 0.0d, _bottomView.Content.Height - _bottomView.Height);
+                    Console.WriteLine($"Scrolling down to: {bottomViewScrollY}");
+                    await _bottomView.ScrollToAsync(0.0d, bottomViewScrollY, false);
+                }
+                else
+                {
+                    Console.WriteLine($"Panning {_bottomViewPanDirection} to {_panTotal}");
+                    _panTotal += _bottomViewPanDelta;
+                    _relativeLayout.ForceLayout();
+                }
+            }
+
             _relativeLayout.ForceLayout();
+        }
+
+        private double Clamp(double value, double min, double max)
+        {
+            return Math.Min(max, Math.Max(min, value));
+        }
+
+        private bool CanScroll()
+        {
+            var abs = _bottomView.ScrollY;
+            Console.WriteLine($"ScrollY: {abs}");
+            return abs > 0.0d;
+        }
+
+        private ScrollView GetBottomView()
+        {
+            var rand = new Random();
+            var stackLayout = new StackLayout()
+            {
+                InputTransparent = true,
+                CascadeInputTransparent = true
+            };
+            var i = 0;
+            for (; i < 15; i++)
+            {
+                stackLayout.Children.Add(new BoxView()
+                {
+                    Color = new Color(rand.NextDouble(), rand.NextDouble(), rand.NextDouble()).WithLuminosity(0.8).WithSaturation(0.8),
+                    InputTransparent = true
+                });
+            }
+
+            var scrollView = new ScrollView
+            {
+                Content = stackLayout,
+                InputTransparent = true,
+                CascadeInputTransparent = true
+            };
+            // scrollView.Scrolled += ScrollViewOnScrolled;
+
+            return scrollView;
+        }
+
+        private double _previousScrollY = 0.0d;
+
+        enum scrollDirection
+        {
+            up,
+            none,
+            down
+        }
+
+        private scrollDirection _scrollDirection = scrollDirection.none;
+
+        private void ScrollViewOnScrolled(object sender, ScrolledEventArgs e)
+        {
+            _scrollDirection = e.ScrollY - _previousScrollY < 0.0d ? scrollDirection.down : scrollDirection.up;
+            _previousScrollY = e.ScrollY;
+
+            if (
+                Math.Abs(_bottomView.ScrollY) < 0.15
+                && _bottomView.Height < _bottomView.Content.Height
+                && _scrollDirection == scrollDirection.up)
+            {
+                _bottomView.InputTransparent = true;
+                _bottomView.GestureRecognizers.Add(_bottomViewPanGestureRecognizer);
+            }
         }
     }
 }
