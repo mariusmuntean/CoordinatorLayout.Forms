@@ -5,6 +5,7 @@ namespace CoordinatorLayout.Forms.Sample
 {
     public class CoordinatorLayoutPage : ContentPage
     {
+        private const string SnapToExtremesAnimation = "SnapToExtremesAnimation";
         private RelativeLayout _relativeLayout;
         private View _topView;
         private ScrollView _bottomView;
@@ -89,6 +90,8 @@ namespace CoordinatorLayout.Forms.Sample
             {
                 case GestureStatus.Started:
                     _bottomViewPreviousTotalY = e.TotalY;
+
+                    this.AbortAnimation(SnapToExtremesAnimation);
                     break;
                 case GestureStatus.Running:
 
@@ -98,8 +101,10 @@ namespace CoordinatorLayout.Forms.Sample
 
                     break;
                 case GestureStatus.Completed:
+                    OnPanGestureCompleted();
                     break;
                 case GestureStatus.Canceled:
+                    OnPanGestureCanceled();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -134,19 +139,50 @@ namespace CoordinatorLayout.Forms.Sample
                 }
             }
 
-            _relativeLayout.ForceLayout();
+            // _relativeLayout.ForceLayout();
+        }
+
+        private void OnPanGestureCompleted()
+        {
+            Snap();
+        }
+
+        private void OnPanGestureCanceled()
+        {
+            Snap();
+        }
+
+        private void Snap()
+        {
+            // No snap needed if the top view is either completely retracted or fully expanded
+            if (_proportionalTopViewHeight == _proportionalTopViewHeightMin || _proportionalTopViewHeight == _proportionalTopViewHeightMax)
+            {
+                return;
+            }
+
+            // Determine which extreme is closer
+            var desiredProportionalTopViewHeight = _proportionalTopViewHeight;
+            if (_proportionalTopViewHeight > 0.5d * (_proportionalTopViewHeightMin + (_proportionalTopViewHeightMax - _proportionalTopViewHeightMin)))
+            {
+                desiredProportionalTopViewHeight = _proportionalTopViewHeightMax;
+            }
+            else
+            {
+                desiredProportionalTopViewHeight = _proportionalTopViewHeightMin;
+            }
+
+            var snapAnimation = new Animation(d =>
+            {
+                _panTotal = d * _relativeLayout.Height;
+                _relativeLayout.ForceLayout();
+            }, _proportionalTopViewHeight, desiredProportionalTopViewHeight, Easing.CubicInOut);
+            this.AbortAnimation(SnapToExtremesAnimation);
+            snapAnimation.Commit(this, SnapToExtremesAnimation);
         }
 
         private double Clamp(double value, double min, double max)
         {
             return Math.Min(max, Math.Max(min, value));
-        }
-
-        private bool CanScroll()
-        {
-            var abs = _bottomView.ScrollY;
-            Console.WriteLine($"ScrollY: {abs}");
-            return abs > 0.0d;
         }
 
         private ScrollView GetBottomView()
@@ -188,20 +224,5 @@ namespace CoordinatorLayout.Forms.Sample
         }
 
         private scrollDirection _scrollDirection = scrollDirection.none;
-
-        private void ScrollViewOnScrolled(object sender, ScrolledEventArgs e)
-        {
-            _scrollDirection = e.ScrollY - _previousScrollY < 0.0d ? scrollDirection.down : scrollDirection.up;
-            _previousScrollY = e.ScrollY;
-
-            if (
-                Math.Abs(_bottomView.ScrollY) < 0.15
-                && _bottomView.Height < _bottomView.Content.Height
-                && _scrollDirection == scrollDirection.up)
-            {
-                _bottomView.InputTransparent = true;
-                _bottomView.GestureRecognizers.Add(_bottomViewPanGestureRecognizer);
-            }
-        }
     }
 }

@@ -49,6 +49,7 @@
         <CodesignKey>iPhone Developer</CodesignKey>
         <MtouchDebug>true</MtouchDebug>
         <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+        <MtouchLink>None</MtouchLink>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
         <DebugType>none</DebugType>
@@ -111,7 +112,7 @@
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\CoordinatorLayout.Forms.Sample\CoordinatorLayout.Forms.Sample.csproj">
-            <Project>{2B866319-198D-4BEE-88AF-69BE467ECF5C}</Project>
+            <Project>{37B572BA-E233-43E3-A876-7E7A36CA0677}</Project>
             <Name>CoordinatorLayout.Forms.Sample</Name>
         </ProjectReference>
     </ItemGroup>
