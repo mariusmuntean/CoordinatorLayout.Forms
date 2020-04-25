@@ -6,6 +6,7 @@ namespace CoordinatorLayout.Forms.Sample
     public class CoordinatorLayoutPage : ContentPage
     {
         private const string SnapToExtremesAnimation = "SnapToExtremesAnimation";
+        private const int ActionViewSize = 50;
         private RelativeLayout _relativeLayout;
         private View _topView;
         private ScrollView _bottomView;
@@ -22,7 +23,7 @@ namespace CoordinatorLayout.Forms.Sample
 
             _relativeLayout = new RelativeLayout();
 
-            _topView = new BoxView() {Color = Color.DodgerBlue};
+            _topView = new BoxView() {Color = Color.DodgerBlue, Margin = new Thickness(5)};
             _relativeLayout.Children.Add(_topView,
                 Constraint.Constant(0.0d),
                 Constraint.Constant(0.0d),
@@ -33,10 +34,19 @@ namespace CoordinatorLayout.Forms.Sample
             _bottomView = GetBottomView();
             _relativeLayout.Children.Add(_bottomView,
                 Constraint.Constant(0.0d),
-                Constraint.RelativeToView(_topView, (parent, otherView) => otherView.Height),
+                Constraint.RelativeToView(_topView, (parent, otherView) => otherView.Height + otherView.Margin.VerticalThickness),
                 Constraint.RelativeToParent(parent => parent.Width),
                 Constraint.RelativeToView(_topView, (Parent, otherView) => Parent.Height - otherView.Height)
             );
+
+            _actionView = GetActionView();
+            _relativeLayout.Children.Add(_actionView,
+                Constraint.RelativeToView(_topView, (parent, view) => view.Width * 0.8d),
+                Constraint.RelativeToView(_topView, (parent, view) => view.Height - (0.5 * ActionViewSize)),
+                Constraint.Constant(ActionViewSize),
+                Constraint.Constant(ActionViewSize)
+            );
+
 
             Content = _relativeLayout;
 
@@ -50,19 +60,48 @@ namespace CoordinatorLayout.Forms.Sample
             _relativeLayout.GestureRecognizers.Add(_bottomViewPanGestureRecognizer);
         }
 
+        private View GetActionView()
+        {
+            var button = new Button
+            {
+                Text = "Hi",
+                TextColor = Color.Goldenrod,
+                FontSize = 18,
+                BorderColor = Color.Goldenrod,
+                BorderWidth = 2.0,
+                CornerRadius = (int) (0.5d * ActionViewSize),
+                BackgroundColor = Color.White
+            };
+
+            return button;
+        }
+
         private Constraint TopViewHeightConstraint()
         {
             return Constraint.RelativeToParent(parent =>
             {
                 var topViewHeight = Math.Min(parent.Height * _proportionalTopViewHeightMax, Math.Max(parent.Height * _proportionalTopViewHeightMin, _panTotal));
                 _proportionalTopViewHeight = topViewHeight / parent.Height;
-                OnTopviewHeightChanged();
+                OnTopViewHeightChanged();
                 return topViewHeight;
             });
         }
 
-        private void OnTopviewHeightChanged()
+        private void OnTopViewHeightChanged()
         {
+            if (_proportionalTopViewHeight <= _proportionalTopViewHeightMin && _actionViewShowing)
+            {
+                _actionViewShowing = false;
+                _actionView.FadeTo(0.0d, easing: Easing.CubicInOut);
+                _actionView.ScaleTo(0.0d, easing: Easing.CubicInOut);
+            }
+
+            if (_proportionalTopViewHeight > _proportionalTopViewHeightMin && !_actionViewShowing)
+            {
+                _actionViewShowing = true;
+                _actionView.FadeTo(1.0d, easing: Easing.CubicInOut);
+                _actionView.ScaleTo(1.0d, easing: Easing.CubicInOut);
+            }
         }
 
         private double _previousPanDistance = 0.0d;
@@ -207,7 +246,8 @@ namespace CoordinatorLayout.Forms.Sample
             {
                 Content = stackLayout,
                 InputTransparent = true,
-                CascadeInputTransparent = true
+                CascadeInputTransparent = true,
+                Margin = new Thickness(5)
             };
             // scrollView.Scrolled += ScrollViewOnScrolled;
 
@@ -224,5 +264,8 @@ namespace CoordinatorLayout.Forms.Sample
         }
 
         private scrollDirection _scrollDirection = scrollDirection.none;
+
+        private View _actionView;
+        private bool _actionViewShowing;
     }
 }
