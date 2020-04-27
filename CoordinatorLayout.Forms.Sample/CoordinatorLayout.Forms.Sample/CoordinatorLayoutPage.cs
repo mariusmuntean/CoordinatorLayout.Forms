@@ -6,7 +6,7 @@ namespace CoordinatorLayout.Forms.Sample
     public class CoordinatorLayoutPage : ContentPage
     {
         private const string SnapToExtremesAnimation = "SnapToExtremesAnimation";
-        private const int ActionViewSize = 50;
+        private const double ActionViewProportionalHeight = 0.2;
         private RelativeLayout _relativeLayout;
         private View _topView;
         private ScrollView _bottomView;
@@ -41,14 +41,11 @@ namespace CoordinatorLayout.Forms.Sample
 
             _actionView = GetActionView();
             _relativeLayout.Children.Add(_actionView,
-                Constraint.RelativeToView(_topView, (parent, view) => view.Width * 0.8d),
-                Constraint.RelativeToView(_topView, (parent, view) => view.Height - (0.5 * ActionViewSize)),
-                Constraint.Constant(ActionViewSize),
-                Constraint.Constant(ActionViewSize)
+                Constraint.Constant(0.0d),
+                Constraint.RelativeToView(_topView, (parent, view) => view.Height - (0.5 * ActionViewProportionalHeight * parent.Height)),
+                Constraint.RelativeToParent(parent => parent.Width),
+                Constraint.RelativeToParent(parent => ActionViewProportionalHeight * parent.Height)
             );
-
-
-            Content = _relativeLayout;
 
             // _topViewPanGestureRecognizer = new PanGestureRecognizer();
             // _topViewPanGestureRecognizer.PanUpdated += TopViewPanGestureRecognizerOnPanUpdated;
@@ -58,10 +55,20 @@ namespace CoordinatorLayout.Forms.Sample
             _bottomViewPanGestureRecognizer.PanUpdated += BottomViewPanGestureRecognizerOnPanUpdated;
             // _bottomView.GestureRecognizers.Add(_bottomViewPanGestureRecognizer);
             _relativeLayout.GestureRecognizers.Add(_bottomViewPanGestureRecognizer);
+            
+            Content = _relativeLayout;
         }
 
-        private View GetActionView()
+        private ContentView GetActionView()
         {
+            var ActionViewParent = new ContentView
+            {
+                Padding = new Thickness(0),
+                Margin = new Thickness(0),
+                IsClippedToBounds = false,
+                BackgroundColor = Color.Peru.MultiplyAlpha(0.5d)
+            };
+
             var button = new Button
             {
                 Text = "Hi",
@@ -69,11 +76,17 @@ namespace CoordinatorLayout.Forms.Sample
                 FontSize = 18,
                 BorderColor = Color.Goldenrod,
                 BorderWidth = 2.0,
-                CornerRadius = (int) (0.5d * ActionViewSize),
-                BackgroundColor = Color.White
+                HeightRequest = 50,
+                WidthRequest = 50,
+                CornerRadius = 25,
+                BackgroundColor = Color.White,
+                HorizontalOptions = LayoutOptions.End,
+                VerticalOptions = LayoutOptions.Center,
+                Margin = new Thickness(15)
             };
+            ActionViewParent.Content = button;
 
-            return button;
+            return ActionViewParent;
         }
 
         private Constraint TopViewHeightConstraint()
@@ -92,15 +105,15 @@ namespace CoordinatorLayout.Forms.Sample
             if (_proportionalTopViewHeight <= _proportionalTopViewHeightMin && _actionViewShowing)
             {
                 _actionViewShowing = false;
-                _actionView.FadeTo(0.0d, easing: Easing.CubicInOut);
-                _actionView.ScaleTo(0.0d, easing: Easing.CubicInOut);
+                _actionView.Content.FadeTo(0.0d, easing: Easing.CubicInOut);
+                _actionView.Content.ScaleTo(0.0d, easing: Easing.CubicInOut);
             }
 
             if (_proportionalTopViewHeight > _proportionalTopViewHeightMin && !_actionViewShowing)
             {
                 _actionViewShowing = true;
-                _actionView.FadeTo(1.0d, easing: Easing.CubicInOut);
-                _actionView.ScaleTo(1.0d, easing: Easing.CubicInOut);
+                _actionView.Content.FadeTo(1.0d, easing: Easing.CubicInOut);
+                _actionView.Content.ScaleTo(1.0d, easing: Easing.CubicInOut);
             }
         }
 
@@ -265,7 +278,7 @@ namespace CoordinatorLayout.Forms.Sample
 
         private scrollDirection _scrollDirection = scrollDirection.none;
 
-        private View _actionView;
+        private ContentView _actionView;
         private bool _actionViewShowing;
     }
 }
