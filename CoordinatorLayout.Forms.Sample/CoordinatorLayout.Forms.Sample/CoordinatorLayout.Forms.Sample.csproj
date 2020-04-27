@@ -2,6 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
+        <AssemblyName>CoordinatorLayout.XamarinForms.Sample</AssemblyName>
+        <RootNamespace>CoordinatorLayout.XamarinForms.Sample</RootNamespace>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -11,5 +13,9 @@
 
     <ItemGroup>
         <PackageReference Include="Xamarin.Forms" Version="4.5.0.657" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\src\CoordinatorLayout.XamarinForms\CoordinatorLayout.XamarinForms.csproj" />
     </ItemGroup>
 </Project>

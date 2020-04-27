@@ -6,7 +6,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 
-namespace CoordinatorLayout.Forms.Sample.Android
+namespace CoordinatorLayout.XamarinForms.Sample.Android
 {
     [Activity(Label = "CoordinatorLayout.Forms.Sample", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity

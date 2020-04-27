@@ -8,9 +8,9 @@
         <ProjectGuid>{455E23F7-D5EC-4A67-9C11-F7D97E6DCF0A}</ProjectGuid>
         <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
         <OutputType>Exe</OutputType>
-        <RootNamespace>CoordinatorLayout.Forms.Sample.iOS</RootNamespace>
+        <RootNamespace>CoordinatorLayout.XamarinForms.Sample.iOS</RootNamespace>
         <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-        <AssemblyName>CoordinatorLayout.Forms.Sample.iOS</AssemblyName>
+        <AssemblyName>CoordinatorLayout.XamarinForms.Sample.iOS</AssemblyName>
         <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
@@ -90,7 +90,6 @@
     <ItemGroup>
         <Compile Include="Main.cs" />
         <Compile Include="AppDelegate.cs" />
-        <Compile Include="Renderers\ScrollViewRenderer.cs" />
         <None Include="Entitlements.plist" />
         <None Include="Info.plist" />
         <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,6 +110,10 @@
         <PackageReference Include="Xamarin.Forms" Version="4.5.0.657" />
     </ItemGroup>
     <ItemGroup>
+        <ProjectReference Include="..\..\..\src\CoordinatorLayout.XamarinForms\CoordinatorLayout.XamarinForms.csproj">
+          <Project>{4c3edf30-df01-4069-a85c-3c8763913694}</Project>
+          <Name>CoordinatorLayout.XamarinForms</Name>
+        </ProjectReference>
         <ProjectReference Include="..\CoordinatorLayout.Forms.Sample\CoordinatorLayout.Forms.Sample.csproj">
             <Project>{37B572BA-E233-43E3-A876-7E7A36CA0677}</Project>
             <Name>CoordinatorLayout.Forms.Sample</Name>

@@ -6,8 +6,8 @@
         <ProjectGuid>{6396F685-E11E-4291-87AD-BCFBBABC2B51}</ProjectGuid>
         <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
         <OutputType>Library</OutputType>
-        <RootNamespace>CoordinatorLayout.Forms.Sample.Android</RootNamespace>
-        <AssemblyName>CoordinatorLayout.Forms.Sample.Android</AssemblyName>
+        <RootNamespace>CoordinatorLayout.XamarinForms.Sample.Android</RootNamespace>
+        <AssemblyName>CoordinatorLayout.XamarinForms.Sample.Android</AssemblyName>
         <AndroidApplication>True</AndroidApplication>
         <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
         <AndroidResgenClass>Resource</AndroidResgenClass>
@@ -57,7 +57,6 @@
     <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.5" /></ItemGroup>
     <ItemGroup>
         <Compile Include="MainActivity.cs" />
-        <Compile Include="Renderers\MyScrollViewRenderer.cs" />
         <Compile Include="Resources\Resource.Designer.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
@@ -73,6 +72,10 @@
         <AndroidResource Include="Resources\values\colors.xml" />
     </ItemGroup>
     <ItemGroup>
+        <ProjectReference Include="..\..\..\src\CoordinatorLayout.XamarinForms\CoordinatorLayout.XamarinForms.csproj">
+          <Project>{4c3edf30-df01-4069-a85c-3c8763913694}</Project>
+          <Name>CoordinatorLayout.XamarinForms</Name>
+        </ProjectReference>
         <ProjectReference Include="..\CoordinatorLayout.Forms.Sample\CoordinatorLayout.Forms.Sample.csproj">
             <Project>{37B572BA-E233-43E3-A876-7E7A36CA0677}</Project>
             <Name>CoordinatorLayout.Forms.Sample</Name>

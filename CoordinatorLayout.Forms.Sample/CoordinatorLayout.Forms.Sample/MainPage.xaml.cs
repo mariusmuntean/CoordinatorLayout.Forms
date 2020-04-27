@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace CoordinatorLayout.Forms.Sample
+namespace CoordinatorLayout.XamarinForms.Sample
 {
     public partial class MainPage : ContentPage
     {

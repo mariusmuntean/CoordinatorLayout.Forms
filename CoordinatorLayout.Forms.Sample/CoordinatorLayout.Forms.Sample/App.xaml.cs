@@ -3,7 +3,7 @@ using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 
-namespace CoordinatorLayout.Forms.Sample
+namespace CoordinatorLayout.XamarinForms.Sample
 {
     public partial class App : Application
     {
