@@ -5,14 +5,42 @@ namespace CoordinatorLayout.XamarinForms.Sample
 {
     public class CoordinatorLayoutPage : ContentPage
     {
+        private Label _expansionLbl;
+        private Label _scrollLbl;
+
         public CoordinatorLayoutPage()
         {
-            Content = new CoordinatorLayout
+            var rootLayout = new Grid();
+            var coordinatorLayout = new CoordinatorLayout
             {
                 TopView = new BoxView {Color = Color.DodgerBlue, Margin = new Thickness(5)},
                 BottomView = GetBottomView(),
-                ActionView = GetActionView()
+                ActionView = GetActionView(),
             };
+            coordinatorLayout.ExpansionEventHandler += (sender, args) => _expansionLbl.Text = $"Expansion: {args.Progress}";
+            coordinatorLayout.ScrollEventHandler += (sender, args) => _scrollLbl.Text = $"Scroll {args.Progress}";
+            coordinatorLayout.ProportionalTopViewHeightMax = 0.33d;
+            coordinatorLayout.ProportionalTopViewHeightMin = 0.0d;
+            coordinatorLayout.ProportionalSnapHeight = 0.3d;
+            rootLayout.Children.Add(coordinatorLayout);
+
+            _expansionLbl = new Label
+            {
+                HorizontalOptions = LayoutOptions.End,
+                VerticalOptions = LayoutOptions.Start,
+                Margin = new Thickness(5)
+            };
+            rootLayout.Children.Add(_expansionLbl);
+
+            _scrollLbl = new Label
+            {
+                HorizontalOptions = LayoutOptions.End,
+                VerticalOptions = LayoutOptions.End,
+                Margin = new Thickness(5)
+            };
+            rootLayout.Children.Add(_scrollLbl);
+
+            Content = rootLayout;
         }
 
         private View GetActionView()

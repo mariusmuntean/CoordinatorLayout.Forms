@@ -6,7 +6,6 @@ namespace CoordinatorLayout.XamarinForms
     public partial class CoordinatorLayout : ContentView
     {
         private const string SnapToExtremesAnimation = "SnapToExtremesAnimation";
-        private const double ActionViewProportionalHeight = 0.2;
 
         private readonly RelativeLayout _relativeLayout;
         private View _topView;
@@ -36,9 +35,6 @@ namespace CoordinatorLayout.XamarinForms
 
         public CoordinatorLayout()
         {
-            _proportionalTopViewHeightInitial = _proportionalTopViewHeightMin;
-            _proportionalTopViewHeight = _proportionalTopViewHeightInitial;
-
             _relativeLayout = new RelativeLayout();
 
             _bottomViewPanGestureRecognizer = new PanGestureRecognizer();
@@ -56,6 +52,20 @@ namespace CoordinatorLayout.XamarinForms
             if (string.IsNullOrWhiteSpace(propertyName))
             {
                 return;
+            }
+
+            if (propertyName == ProportionalTopViewHeightMinProperty.PropertyName || propertyName == ProportionalTopViewHeightMaxProperty.PropertyName)
+            {
+                if (ProportionalTopViewHeightMin <= ProportionalTopViewHeightMax)
+                {
+                    _proportionalTopViewHeightMin = ProportionalTopViewHeightMin;
+                    _proportionalTopViewHeightMax = ProportionalTopViewHeightMax;
+
+                    _proportionalTopViewHeightInitial = _proportionalTopViewHeightMin;
+                    _proportionalTopViewHeight = _proportionalTopViewHeightInitial;
+
+                    _relativeLayout.ForceLayout();
+                }
             }
 
             if (propertyName == TopViewProperty.PropertyName)
@@ -97,15 +107,14 @@ namespace CoordinatorLayout.XamarinForms
                     Padding = new Thickness(0),
                     Margin = new Thickness(0),
                     IsClippedToBounds = false,
-                    BackgroundColor = Color.Peru.MultiplyAlpha(0.5d),
                     Content = ActionView
                 };
 
                 _relativeLayout.Children.Add(_actionViewContainer,
                     Constraint.Constant(0.0d),
-                    Constraint.RelativeToView(_topView, (parent, view) => view.Height - (0.5 * ActionViewProportionalHeight * parent.Height)),
+                    Constraint.RelativeToView(_topView, (parent, view) => view.Height - (0.5 * ProportionalActionViewContainerHeight * parent.Height)),
                     Constraint.RelativeToParent(parent => parent.Width),
-                    Constraint.RelativeToParent(parent => ActionViewProportionalHeight * parent.Height)
+                    Constraint.RelativeToParent(parent => ProportionalActionViewContainerHeight * parent.Height)
                 );
 
                 // remember the new action view
@@ -118,6 +127,7 @@ namespace CoordinatorLayout.XamarinForms
             // replace any previous bottom view, if present
             if (_bottomView != null)
             {
+                _bottomViewContainer.Scrolled -= BottomViewContainerOnScrolled;
                 _bottomViewContainer.Content = null;
                 _relativeLayout.Children.Remove(_bottomViewContainer);
             }
@@ -133,6 +143,7 @@ namespace CoordinatorLayout.XamarinForms
                     CascadeInputTransparent = true,
                     Margin = new Thickness(5)
                 };
+                _bottomViewContainer.Scrolled += BottomViewContainerOnScrolled;
 
                 _relativeLayout.Children.Add(_bottomViewContainer,
                     Constraint.Constant(0.0d),
@@ -144,6 +155,12 @@ namespace CoordinatorLayout.XamarinForms
                 // remember the new bottom view
                 _bottomView = BottomView;
             }
+        }
+
+        private void BottomViewContainerOnScrolled(object sender, ScrolledEventArgs e)
+        {
+            var range = _bottomViewContainer.Content.Height - _bottomViewContainer.Height;
+            ScrollEventHandler?.Invoke(this, new ScrollEventArgs(e.ScrollY / range));
         }
 
         private void ReplaceTopView()
@@ -182,6 +199,10 @@ namespace CoordinatorLayout.XamarinForms
 
         private void OnTopViewHeightChanged()
         {
+            var range = _proportionalTopViewHeightMax - _proportionalTopViewHeightMin;
+            var progress = (_proportionalTopViewHeight - _proportionalTopViewHeightMin) / range;
+            ExpansionEventHandler?.Invoke(this, new ExpansionEventArgs(progress));
+
             if (_proportionalTopViewHeight <= _proportionalTopViewHeightMin && _actionViewShowing)
             {
                 _actionViewShowing = false;
@@ -281,7 +302,7 @@ namespace CoordinatorLayout.XamarinForms
 
             // Determine which extreme is closer
             var desiredProportionalTopViewHeight = _proportionalTopViewHeight;
-            if (_proportionalTopViewHeight > 0.5d * (_proportionalTopViewHeightMin + (_proportionalTopViewHeightMax - _proportionalTopViewHeightMin)))
+            if (_proportionalTopViewHeight > ProportionalSnapHeight * (_proportionalTopViewHeightMin + (_proportionalTopViewHeightMax - _proportionalTopViewHeightMin)))
             {
                 desiredProportionalTopViewHeight = _proportionalTopViewHeightMax;
             }
