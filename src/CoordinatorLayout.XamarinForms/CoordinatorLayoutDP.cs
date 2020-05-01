@@ -93,6 +93,32 @@ namespace CoordinatorLayout.XamarinForms
             set => SetValue(ShouldKineticScrollProperty, value);
         }
 
+        public static readonly BindableProperty KineticScrollDragCoefficientProperty = BindableProperty.Create(
+            nameof(KineticScrollDragCoefficient),
+            typeof(double),
+            typeof(CoordinatorLayout),
+            0.02
+        );
+
+        public double KineticScrollDragCoefficient
+        {
+            get => (double) GetValue(KineticScrollDragCoefficientProperty);
+            set => SetValue(KineticScrollDragCoefficientProperty, value);
+        }
+
+        public static readonly BindableProperty ShouldExpandFromKineticScrollProperty = BindableProperty.CreateAttached(
+            nameof(ShouldExpandFromKineticScroll),
+            typeof(bool),
+            typeof(CoordinatorLayout),
+            true
+        );
+
+        public bool ShouldExpandFromKineticScroll
+        {
+            get => (bool) GetValue(ShouldExpandFromKineticScrollProperty);
+            set => SetValue(ShouldExpandFromKineticScrollProperty, value);
+        }
+
         public static readonly BindableProperty TopViewProperty = BindableProperty.Create(
             nameof(TopView),
             typeof(View),

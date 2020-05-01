@@ -24,6 +24,7 @@ namespace CoordinatorLayout.XamarinForms.Sample
             coordinatorLayout.ProportionalSnapHeight = 0.3d;
             coordinatorLayout.ShouldSnap = true;
             coordinatorLayout.ShouldKineticScroll = true;
+            coordinatorLayout.ShouldExpandFromKineticScroll = true;
             rootLayout.Children.Add(coordinatorLayout);
 
             _expansionLbl = new Label
