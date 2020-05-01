@@ -253,8 +253,13 @@ namespace CoordinatorLayout.XamarinForms
             }
         }
 
-        private async Task HandlePan(PanSource panSource, double panDelta)
+        private async Task<bool> HandlePan(PanSource panSource, double panDelta)
         {
+            if (panSource != PanSource.KineticScroll)
+            {
+                _bottomViewContainer.AbortAnimation(KineticScrollAnimationName);
+            }
+
             if (_bottomViewContainer.ScrollY >= 0.0d && _bottomViewPanDirection == Direction.up && _proportionalTopViewHeight <= _proportionalTopViewHeightMin)
             {
                 var bottomViewScrollY = _bottomViewContainer.ScrollY + (-panDelta);
@@ -262,6 +267,7 @@ namespace CoordinatorLayout.XamarinForms
                 bottomViewScrollY = Clamp(bottomViewScrollY, 0.0d, _bottomViewContainer.Content.Height - _bottomViewContainer.Height);
                 Console.WriteLine($"Scrolling up to: {bottomViewScrollY}");
                 await _bottomViewContainer.ScrollToAsync(0.0d, bottomViewScrollY, false);
+                return true;
             }
             else if (_bottomViewContainer.ScrollY > 0.0d && _bottomViewPanDirection == Direction.down && _proportionalTopViewHeight <= _proportionalTopViewHeightMin)
             {
@@ -270,12 +276,22 @@ namespace CoordinatorLayout.XamarinForms
                 bottomViewScrollY = Clamp(bottomViewScrollY, 0.0d, _bottomViewContainer.Content.Height - _bottomViewContainer.Height);
                 Console.WriteLine($"Scrolling down to: {bottomViewScrollY}");
                 await _bottomViewContainer.ScrollToAsync(0.0d, bottomViewScrollY, false);
+                return true;
             }
             else
             {
+                // Don't increase if already at maximum && don't decrease if already at minimum
+                if (panDelta > 0.0d && _proportionalTopViewHeight >= _proportionalTopViewHeightMax
+                    || panDelta < 0.0d && _proportionalTopViewHeight <= _proportionalTopViewHeightMin)
+                {
+                    return false;
+                }
+
                 Console.WriteLine($"Panning {_bottomViewPanDirection} to {_panTotal}");
                 _panTotal += panDelta;
                 _relativeLayout.ForceLayout();
+
+                return true;
             }
         }
 
@@ -299,6 +315,13 @@ namespace CoordinatorLayout.XamarinForms
 
         private void LaunchKineticScroll(double bottomViewPanDelta)
         {
+            // Dont kinetic scroll if it isn't desired
+            if (!ShouldKineticScroll)
+            {
+                return;
+            }
+
+            // Don't kinetic scroll if the finger barely moved
             if (Math.Abs(bottomViewPanDelta) < PanThreshold)
             {
                 return;
@@ -309,8 +332,10 @@ namespace CoordinatorLayout.XamarinForms
             {
                 Console.WriteLine($"Kinetic: d={d}   d1={d1}");
                 // _bottomViewContainer.ScrollToAsync(0, _bottomViewContainer.ScrollY + (Math.Sign(-d) * d1), false);
-                HandlePan(PanSource.KineticScroll, Math.Sign(d) * d1);
-                return true;
+                var handled = HandlePan(PanSource.KineticScroll, Math.Sign(d) * d1).GetAwaiter().GetResult();
+
+                // Returning true means "keep going"
+                return handled;
             }, bottomViewPanDelta, 0.02d, OnKineticScrollingCompleted);
         }
 
@@ -321,6 +346,12 @@ namespace CoordinatorLayout.XamarinForms
 
         private bool Snap()
         {
+            // don't snap if snapping isn't desired
+            if (!ShouldSnap)
+            {
+                return false;
+            }
+
             // snap only if top view and bottom view are set
             if (_topView == null || _bottomView == null)
             {

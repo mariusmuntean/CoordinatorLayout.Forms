@@ -68,6 +68,31 @@ namespace CoordinatorLayout.XamarinForms
             set => SetValue(ProportionalSnapHeightProperty, value);
         }
 
+        public static readonly BindableProperty ShouldSnapProperty = BindableProperty.Create(
+            nameof(ShouldSnap),
+            typeof(bool),
+            typeof(CoordinatorLayout),
+            true
+        );
+
+        public bool ShouldSnap
+        {
+            get => (bool) GetValue(ShouldSnapProperty);
+            set => SetValue(ShouldSnapProperty, value);
+        }
+
+        public static readonly BindableProperty ShouldKineticScrollProperty = BindableProperty.Create(
+            nameof(ShouldKineticScroll),
+            typeof(bool),
+            typeof(CoordinatorLayout),
+            true);
+
+        public bool ShouldKineticScroll
+        {
+            get => (bool) GetValue(ShouldKineticScrollProperty);
+            set => SetValue(ShouldKineticScrollProperty, value);
+        }
+
         public static readonly BindableProperty TopViewProperty = BindableProperty.Create(
             nameof(TopView),
             typeof(View),
