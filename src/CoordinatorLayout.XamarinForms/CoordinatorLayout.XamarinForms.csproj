@@ -44,9 +44,9 @@ The control is already quite customizable. Check it out!</PackageReleaseNotes>
         <DebugType>pdbonly</DebugType>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
-        <!-- If we want a nuget package add this
+        <!-- If we want a nuget package add this -->
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-         -->
+         
     </PropertyGroup>
 
     <ItemGroup>
@@ -81,9 +81,5 @@ The control is already quite customizable. Check it out!</PackageReleaseNotes>
 
     <ItemGroup>
         <PackageReference Include="Xamarin.Forms" Version="4.5.0.657" />
-        <PackageReference Include="NuGet.Build.Packaging" Version="0.2.5-dev.8">
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-          <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
     </ItemGroup>
 </Project>
