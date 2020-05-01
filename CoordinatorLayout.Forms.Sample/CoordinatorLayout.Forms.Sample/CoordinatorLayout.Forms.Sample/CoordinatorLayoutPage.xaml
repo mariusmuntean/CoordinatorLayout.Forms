@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xamarinForms="clr-namespace:CoordinatorLayout.XamarinForms;assembly=CoordinatorLayout.XamarinForms"
+             x:Class="CoordinatorLayout.XamarinForms.Sample.CoordinatorLayoutPage">
+
+    <Grid>
+
+        <xamarinForms:CoordinatorLayout x:Name="_coordinatorLayout"
+                                        ExpansionEventHandler="OnCoordinatorLayoutOnExpansionEventHandler"
+                                        ScrollEventHandler="OnCoordinatorLayoutOnScrollEventHandler"
+                                        ProportionalTopViewHeightMax="0.33"
+                                        ProportionalTopViewHeightMin="0.1"
+                                        ProportionalSnapHeight="0.3"
+                                        ShouldSnap="true"
+                                        ShouldKineticScroll="true"
+                                        ShouldExpandFromKineticScroll="true"
+                                        AutohideActionView="true">
+
+            <!-- The TopView expands and collapses -->
+            <xamarinForms:CoordinatorLayout.TopView>
+                <BoxView Color="DodgerBlue"
+                         Margin="5" />
+            </xamarinForms:CoordinatorLayout.TopView>
+
+            <!-- The BottomView is shown below the TopView and might scroll if its content doesn't fit into the available space -->
+            <xamarinForms:CoordinatorLayout.BottomView>
+                <StackLayout x:Name="_stackLayout"
+                             InputTransparent="True"
+                             CascadeInputTransparent="True" />
+            </xamarinForms:CoordinatorLayout.BottomView>
+
+            <!-- The ActionView is shown right between the TopView and BottomView. It usually contains views that trigger actions -->
+            <xamarinForms:CoordinatorLayout.ActionView>
+                <Button
+                    Text="Hi"
+                    TextColor="Color.Goldenrod"
+                    FontSize="18"
+                    BorderColor="Color.Goldenrod"
+                    BorderWidth="2.0"
+                    HeightRequest="50"
+                    WidthRequest="50"
+                    CornerRadius="25"
+                    BackgroundColor="Color.White"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    Margin="15" />
+            </xamarinForms:CoordinatorLayout.ActionView>
+        </xamarinForms:CoordinatorLayout>
+
+        <Label HorizontalOptions="End"
+               VerticalOptions="Start"
+               Margin="5"
+               Text="{Binding Source={x:Reference _coordinatorLayout}, Path=ExpansionProgress, StringFormat='Expansion progress: {0:F2}'}" />
+
+        <Label HorizontalOptions="End"
+               VerticalOptions="End"
+               Margin="5"
+               Text="{Binding Source={x:Reference _coordinatorLayout}, Path=ScrollProgress,StringFormat='Scroll progress: {0:F2}'}" />
+    </Grid>
+
+</ContentPage>

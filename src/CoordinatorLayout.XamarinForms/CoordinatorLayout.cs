@@ -174,7 +174,9 @@ namespace CoordinatorLayout.XamarinForms
         private void BottomViewContainerOnScrolled(object sender, ScrolledEventArgs e)
         {
             var range = _bottomViewContainer.Content.Height - _bottomViewContainer.Height;
-            ScrollEventHandler?.Invoke(this, new ScrollEventArgs(e.ScrollY / range));
+            var progress = e.ScrollY / range;
+            ScrollEventHandler?.Invoke(this, new ScrollEventArgs(progress));
+            ScrollProgress = progress;
         }
 
         private void ReplaceTopView()
@@ -219,7 +221,9 @@ namespace CoordinatorLayout.XamarinForms
         {
             var range = _proportionalTopViewHeightMax - _proportionalTopViewHeightMin;
             var progress = (_proportionalTopViewHeight - _proportionalTopViewHeightMin) / range;
+
             ExpansionEventHandler?.Invoke(this, new ExpansionEventArgs(progress));
+            ExpansionProgress = progress;
 
             ShowHideActionView();
         }

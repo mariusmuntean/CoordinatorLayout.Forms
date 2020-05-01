@@ -14,6 +14,36 @@ namespace CoordinatorLayout.XamarinForms
         /// Event that is raised when the bottom view is scrolled. Argument values range from 0.0 (not scrolled) to 1.0 (fully scrolled).
         /// </summary>
         public event EventHandler<ScrollEventArgs> ScrollEventHandler;
+        
+        public static readonly BindableProperty ScrollProgressProperty = BindableProperty.Create(
+            nameof(ScrollProgress),
+            typeof(double),
+            typeof(CoordinatorLayout)
+        );
+
+        /// <summary>
+        ///  Argument values range from 0.0 (collapsed) to 1.0 (expanded).
+        /// </summary>
+        public double ScrollProgress
+        {
+            get => (double) GetValue(ScrollProgressProperty);
+            set => SetValue(ScrollProgressProperty, value);
+        }
+        
+        public static readonly BindableProperty ExpansionProgressProperty = BindableProperty.Create(
+            nameof(ExpansionProgress),
+            typeof(double),
+            typeof(CoordinatorLayout)
+        );
+
+        /// <summary>
+        ///  Argument values range from 0.0 (collapsed) to 1.0 (expanded).
+        /// </summary>
+        public double ExpansionProgress
+        {
+            get => (double) GetValue(ExpansionProgressProperty);
+            set => SetValue(ExpansionProgressProperty, value);
+        }
 
         public static readonly BindableProperty ProportionalTopViewHeightMinProperty = BindableProperty.Create(
             nameof(ProportionalTopViewHeightMin),
