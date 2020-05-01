@@ -58,7 +58,9 @@ namespace CoordinatorLayout.XamarinForms
         );
 
         /// <summary>
-        /// The top view snaps to its collapsed position while smaller than this value or it snaps to its expanded position while it is larger than this value
+        /// The top view snaps to its collapsed position while smaller than this value or it snaps to its expanded position while it is larger than this value.
+        ///
+        /// <para>Defaults to 0.5, i.e. half way</para>
         /// </summary>
         public double ProportionalSnapHeight
         {

@@ -43,6 +43,7 @@
         <Compile Include="CoordinatorLayoutDP.cs" />
         <Compile Include="Direction.cs" />
         <Compile Include="ExpansionEventArgs.cs" />
+        <Compile Include="PanSource.cs" />
         <Compile Include="ScrollEventArgs.cs" />
         <None Include="**\*.cs;**\*.xml;**\*.axml;**\*.png" Exclude="obj\**\*.*;bin\**\*.*;bin;obj" />
 

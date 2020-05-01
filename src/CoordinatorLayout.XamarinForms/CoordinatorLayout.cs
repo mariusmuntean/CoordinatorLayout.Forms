@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace CoordinatorLayout.XamarinForms
@@ -6,6 +7,8 @@ namespace CoordinatorLayout.XamarinForms
     public partial class CoordinatorLayout : ContentView
     {
         private const string SnapToExtremesAnimation = "SnapToExtremesAnimation";
+        private const string KineticScrollAnimationName = "KineticScrollAnimation";
+        private const double PanThreshold = 1;
 
         private readonly RelativeLayout _relativeLayout;
         private View _topView;
@@ -219,7 +222,6 @@ namespace CoordinatorLayout.XamarinForms
             }
         }
 
-
         private async void BottomViewPanGestureRecognizerOnPanUpdated(object sender, PanUpdatedEventArgs e)
         {
             switch (e.StatusType)
@@ -230,80 +232,111 @@ namespace CoordinatorLayout.XamarinForms
                     this.AbortAnimation(SnapToExtremesAnimation);
                     break;
                 case GestureStatus.Running:
-
                     _bottomViewPanDelta = e.TotalY - _bottomViewPreviousTotalY;
                     _bottomViewPanDirection = _bottomViewPanDelta > 0.0d ? Direction.down : Direction.up;
                     _bottomViewPreviousTotalY = e.TotalY;
 
                     break;
                 case GestureStatus.Completed:
-                    OnPanGestureCompleted();
+                    OnPanGestureCompleted(_bottomViewPanDelta);
                     break;
                 case GestureStatus.Canceled:
-                    OnPanGestureCanceled();
+                    OnPanGestureCanceled(_bottomViewPanDelta);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            Console.WriteLine($"Raw tempPanTotal: {_tempPanTotal}");
-            Console.WriteLine($"Direction: {_bottomViewPanDirection}");
-
             if (e.StatusType == GestureStatus.Running && _topView != null && _bottomView != null)
             {
-                if (_bottomViewContainer.ScrollY >= 0.0d && _bottomViewPanDirection == Direction.up && _proportionalTopViewHeight <= _proportionalTopViewHeightMin)
-                {
-                    var bottomViewScrollY = _bottomViewContainer.ScrollY + (-_bottomViewPanDelta);
-
-                    bottomViewScrollY = Clamp(bottomViewScrollY, 0.0d, _bottomViewContainer.Content.Height - _bottomViewContainer.Height);
-                    Console.WriteLine($"Scrolling up to: {bottomViewScrollY}");
-                    await _bottomViewContainer.ScrollToAsync(0.0d, bottomViewScrollY, false);
-                }
-                else if (_bottomViewContainer.ScrollY > 0.0d && _bottomViewPanDirection == Direction.down && _proportionalTopViewHeight <= _proportionalTopViewHeightMin)
-                {
-                    var bottomViewScrollY = _bottomViewContainer.ScrollY + (-_bottomViewPanDelta);
-
-                    bottomViewScrollY = Clamp(bottomViewScrollY, 0.0d, _bottomViewContainer.Content.Height - _bottomViewContainer.Height);
-                    Console.WriteLine($"Scrolling down to: {bottomViewScrollY}");
-                    await _bottomViewContainer.ScrollToAsync(0.0d, bottomViewScrollY, false);
-                }
-                else
-                {
-                    Console.WriteLine($"Panning {_bottomViewPanDirection} to {_panTotal}");
-                    _panTotal += _bottomViewPanDelta;
-                    _relativeLayout.ForceLayout();
-                }
+                await HandlePan(PanSource.PanGesture, _bottomViewPanDelta);
             }
         }
 
-        private void OnPanGestureCompleted()
+        private async Task HandlePan(PanSource panSource, double panDelta)
         {
-            Snap();
+            if (_bottomViewContainer.ScrollY >= 0.0d && _bottomViewPanDirection == Direction.up && _proportionalTopViewHeight <= _proportionalTopViewHeightMin)
+            {
+                var bottomViewScrollY = _bottomViewContainer.ScrollY + (-panDelta);
+
+                bottomViewScrollY = Clamp(bottomViewScrollY, 0.0d, _bottomViewContainer.Content.Height - _bottomViewContainer.Height);
+                Console.WriteLine($"Scrolling up to: {bottomViewScrollY}");
+                await _bottomViewContainer.ScrollToAsync(0.0d, bottomViewScrollY, false);
+            }
+            else if (_bottomViewContainer.ScrollY > 0.0d && _bottomViewPanDirection == Direction.down && _proportionalTopViewHeight <= _proportionalTopViewHeightMin)
+            {
+                var bottomViewScrollY = _bottomViewContainer.ScrollY + (-panDelta);
+
+                bottomViewScrollY = Clamp(bottomViewScrollY, 0.0d, _bottomViewContainer.Content.Height - _bottomViewContainer.Height);
+                Console.WriteLine($"Scrolling down to: {bottomViewScrollY}");
+                await _bottomViewContainer.ScrollToAsync(0.0d, bottomViewScrollY, false);
+            }
+            else
+            {
+                Console.WriteLine($"Panning {_bottomViewPanDirection} to {_panTotal}");
+                _panTotal += panDelta;
+                _relativeLayout.ForceLayout();
+            }
         }
 
-        private void OnPanGestureCanceled()
+        private void OnPanGestureCompleted(double bottomViewPanDelta)
         {
-            Snap();
+            var isSnapping = Snap();
+            if (!isSnapping)
+            {
+                LaunchKineticScroll(bottomViewPanDelta);
+            }
         }
 
-        private void Snap()
+        private void OnPanGestureCanceled(double bottomViewPanDelta)
+        {
+            var isSnapping = Snap();
+            if (!isSnapping)
+            {
+                LaunchKineticScroll(bottomViewPanDelta);
+            }
+        }
+
+        private void LaunchKineticScroll(double bottomViewPanDelta)
+        {
+            if (Math.Abs(bottomViewPanDelta) < PanThreshold)
+            {
+                return;
+            }
+
+            _bottomView.AbortAnimation(KineticScrollAnimationName);
+            _bottomViewContainer.AnimateKinetic(KineticScrollAnimationName, (d, d1) =>
+            {
+                Console.WriteLine($"Kinetic: d={d}   d1={d1}");
+                // _bottomViewContainer.ScrollToAsync(0, _bottomViewContainer.ScrollY + (Math.Sign(-d) * d1), false);
+                HandlePan(PanSource.KineticScroll, Math.Sign(d) * d1);
+                return true;
+            }, bottomViewPanDelta, 0.02d, OnKineticScrollingCompleted);
+        }
+
+        private void OnKineticScrollingCompleted()
+        {
+            OnPanGestureCompleted(0.0d);
+        }
+
+        private bool Snap()
         {
             // snap only if top view and bottom view are set
             if (_topView == null || _bottomView == null)
             {
-                return;
+                return false;
             }
 
             // No snap needed if the top view is either completely retracted or fully expanded
             if (Math.Abs(_proportionalTopViewHeight - _proportionalTopViewHeightMin) < double.Epsilon
                 || Math.Abs(_proportionalTopViewHeight - _proportionalTopViewHeightMax) < double.Epsilon)
             {
-                return;
+                return false;
             }
 
             // Determine which extreme is closer
             var desiredProportionalTopViewHeight = _proportionalTopViewHeight;
-            if (_proportionalTopViewHeight > ProportionalSnapHeight * (_proportionalTopViewHeightMin + (_proportionalTopViewHeightMax - _proportionalTopViewHeightMin)))
+            if (_proportionalTopViewHeight > _proportionalTopViewHeightMin + ProportionalSnapHeight * (_proportionalTopViewHeightMax - _proportionalTopViewHeightMin))
             {
                 desiredProportionalTopViewHeight = _proportionalTopViewHeightMax;
             }
@@ -319,6 +352,8 @@ namespace CoordinatorLayout.XamarinForms
             }, _proportionalTopViewHeight, desiredProportionalTopViewHeight, Easing.CubicInOut);
             this.AbortAnimation(SnapToExtremesAnimation);
             snapAnimation.Commit(this, SnapToExtremesAnimation);
+
+            return true;
         }
 
         private double Clamp(double value, double min, double max)

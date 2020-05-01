@@ -71,7 +71,7 @@ namespace CoordinatorLayout.XamarinForms.Sample
                 CascadeInputTransparent = true
             };
 
-            for (var i = 0; i < 16; i++)
+            for (var i = 0; i < 55; i++)
             {
                 stackLayout.Children.Add(new BoxView
                 {
