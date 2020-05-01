@@ -1,6 +1,6 @@
 <Project Sdk="MSBuild.Sdk.Extras/2.0.54">
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;MonoAndroid90;Xamarin.iOS10</TargetFrameworks>
+        <TargetFrameworks>netstandard2.0;Xamarin.iOS10;MonoAndroid90;</TargetFrameworks>
 
         <!--Assembly and Namespace info -->
         <AssemblyName>CoordinatorLayout.XamarinForms</AssemblyName>
@@ -19,7 +19,7 @@
         <DefineConstants>$(DefineConstants);</DefineConstants>
 
         <PackOnBuild>true</PackOnBuild>
-        <PackageVersion>1.0</PackageVersion>
+        <PackageVersion>1.1</PackageVersion>
         <Authors>Marius Muntean</Authors>
         <Copyright>2020</Copyright>
         <Owners>Marius Muntean</Owners>
@@ -30,6 +30,7 @@ The control is already quite customizable. Check it out!</PackageReleaseNotes>
         <PackageTags>xamarinforms customcontrol coordinatorlayout</PackageTags>
         <Title>CoordinatorLayout.XamarinForms</Title>
         <Description>A custom control for Xamarin.Forms, that shows an expanding top view and a scrollable bottom view.</Description>
+        <PackageId>CoordinatorLayout.XamarinForms</PackageId>
     </PropertyGroup>
 
     <!-- Define what happens on build and release -->

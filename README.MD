@@ -14,7 +14,7 @@ Here's a quick rundown of the control's features:
 
 | Package | Version | Dependencies |
 |---|---|---|
-| BorderView | [![Nuget](https://img.shields.io/nuget/vpre/BorderView)](https://www.nuget.org/packages/BorderView/) | [![Nuget](https://img.shields.io/badge/Xamarin.Forms-v4.5-green)](https://www.nuget.org/packages/Xamarin.Forms/)
+| CoordinatorLayout.XamarinForms | [![Nuget](https://img.shields.io/nuget/vpre/CoordinatorLayout)](https://www.nuget.org/packages/CoordinatorLayout.XamarinForms/) | [![Nuget](https://img.shields.io/badge/Xamarin.Forms-v4.5-green)](https://www.nuget.org/packages/Xamarin.Forms/)
 
 ## Sample
  There's a nice sample application to get you going.
