@@ -34,7 +34,7 @@ namespace CoordinatorLayout.XamarinForms
         private double _tempPanTotal = 0.0d;
         private double _bottomViewPanDelta = 0.0d;
 
-        private bool _actionViewShowing;
+        private bool _actionViewShowing = true;
 
         public CoordinatorLayout()
         {
@@ -71,6 +71,14 @@ namespace CoordinatorLayout.XamarinForms
                 }
             }
 
+            if (propertyName == AutohideActionViewProperty.PropertyName)
+            {
+                if (!AutohideActionView)
+                {
+                    ShowActionView();
+                }
+            }
+
             if (propertyName == TopViewProperty.PropertyName)
             {
                 // Replace all views
@@ -104,7 +112,7 @@ namespace CoordinatorLayout.XamarinForms
             // add the new action view, if any and if a top view is available.
             if (ActionView != null && TopView != null)
             {
-                // The action view is aaded to a container and that container is added to the relative layout
+                // The action view is added to a container and that container is added to the relative layout
                 _actionViewContainer = new ContentView
                 {
                     Padding = new Thickness(0),
@@ -122,6 +130,9 @@ namespace CoordinatorLayout.XamarinForms
 
                 // remember the new action view
                 _actionView = ActionView;
+                
+                // handle the new action view 
+                ShowHideActionView();
             }
         }
 
@@ -186,6 +197,9 @@ namespace CoordinatorLayout.XamarinForms
 
                 // remember the new top view
                 _topView = TopView;
+                
+                // run the height-changed handler
+                OnTopViewHeightChanged();
             }
         }
 
@@ -207,19 +221,46 @@ namespace CoordinatorLayout.XamarinForms
             var progress = (_proportionalTopViewHeight - _proportionalTopViewHeightMin) / range;
             ExpansionEventHandler?.Invoke(this, new ExpansionEventArgs(progress));
 
+            ShowHideActionView();
+        }
+
+        private void ShowHideActionView()
+        {
+            // Nothing to do as long as no ActionView/Container present
+            if (_actionViewContainer?.Content == null)
+            {
+                return;
+            }
+            
+            // If autohide isn't desired, then don't do anything
+            if (!AutohideActionView)
+            {
+                return;
+            }
+            
             if (_proportionalTopViewHeight <= _proportionalTopViewHeightMin && _actionViewShowing)
             {
-                _actionViewShowing = false;
-                _actionViewContainer.Content.FadeTo(0.0d, easing: Easing.CubicInOut);
-                _actionViewContainer.Content.ScaleTo(0.0d, easing: Easing.CubicInOut);
+                HideActionView();
             }
 
             if (_proportionalTopViewHeight > _proportionalTopViewHeightMin && !_actionViewShowing)
             {
-                _actionViewShowing = true;
-                _actionViewContainer.Content.FadeTo(1.0d, easing: Easing.CubicInOut);
-                _actionViewContainer.Content.ScaleTo(1.0d, easing: Easing.CubicInOut);
+                ShowActionView();
             }
+        }
+
+        private void ShowActionView()
+        {
+            _actionViewShowing = true;
+            _actionViewContainer.Content.FadeTo(1.0d, easing: Easing.CubicInOut);
+            _actionViewContainer.Content.ScaleTo(1.0d, easing: Easing.CubicInOut);
+        }
+
+        private void HideActionView()
+        {
+            _actionViewShowing = false;
+            _actionViewContainer.Content.FadeTo(0.0d, easing: Easing.CubicInOut);
+            _actionViewContainer.Content.ScaleTo(0.0d, easing: Easing.CubicInOut);
         }
 
         private async void BottomViewPanGestureRecognizerOnPanUpdated(object sender, PanUpdatedEventArgs e)

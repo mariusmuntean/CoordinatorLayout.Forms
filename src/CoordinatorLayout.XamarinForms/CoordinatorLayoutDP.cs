@@ -175,6 +175,22 @@ namespace CoordinatorLayout.XamarinForms
             set => SetValue(ActionViewProperty, value);
         }
 
+        public static readonly BindableProperty AutohideActionViewProperty = BindableProperty.Create(
+            nameof(AutohideActionView),
+            typeof(bool),
+            typeof(CoordinatorLayout),
+            true
+        );
+
+        /// <summary>
+        /// Whether or not to automatically hide the <see cref="ActionView"/> when the top view is collapsed and to show it when it is expanded.
+        /// </summary>
+        public bool AutohideActionView
+        {
+            get => (bool) GetValue(AutohideActionViewProperty);
+            set => SetValue(AutohideActionViewProperty, value);
+        }
+
         public static readonly BindableProperty ProportionalActionViewContainerHeightProperty = BindableProperty.Create(
             nameof(ProportionalActionViewContainerHeight),
             typeof(double),

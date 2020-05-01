@@ -25,6 +25,7 @@ namespace CoordinatorLayout.XamarinForms.Sample
             coordinatorLayout.ShouldSnap = true;
             coordinatorLayout.ShouldKineticScroll = true;
             coordinatorLayout.ShouldExpandFromKineticScroll = true;
+            coordinatorLayout.AutohideActionView = true;
             rootLayout.Children.Add(coordinatorLayout);
 
             _expansionLbl = new Label
