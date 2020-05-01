@@ -18,6 +18,18 @@
         <!-- Helper to add defines-->
         <DefineConstants>$(DefineConstants);</DefineConstants>
 
+        <PackOnBuild>true</PackOnBuild>
+        <PackageVersion>1.0</PackageVersion>
+        <Authors>Marius Muntean</Authors>
+        <Copyright>2020</Copyright>
+        <Owners>Marius Muntean</Owners>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/mariusmuntean/CoordinatorLayout.Forms</PackageProjectUrl>
+        <PackageReleaseNotes>First release.
+The control is already quite customizable. Check it out!</PackageReleaseNotes>
+        <PackageTags>xamarinforms customcontrol coordinatorlayout</PackageTags>
+        <Title>CoordinatorLayout.XamarinForms</Title>
+        <Description>A custom control for Xamarin.Forms, that shows an expanding top view and a scrollable bottom view.</Description>
     </PropertyGroup>
 
     <!-- Define what happens on build and release -->
@@ -68,5 +80,9 @@
 
     <ItemGroup>
         <PackageReference Include="Xamarin.Forms" Version="4.5.0.657" />
+        <PackageReference Include="NuGet.Build.Packaging" Version="0.2.5-dev.8">
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
     </ItemGroup>
 </Project>

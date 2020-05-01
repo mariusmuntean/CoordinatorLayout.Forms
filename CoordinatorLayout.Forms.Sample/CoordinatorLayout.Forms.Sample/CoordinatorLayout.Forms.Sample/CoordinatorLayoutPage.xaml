@@ -7,7 +7,14 @@
 
     <Grid>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+
         <xamarinForms:CoordinatorLayout x:Name="_coordinatorLayout"
+                                        Grid.Column="0"
                                         ExpansionEventHandler="OnCoordinatorLayoutOnExpansionEventHandler"
                                         ScrollEventHandler="OnCoordinatorLayoutOnScrollEventHandler"
                                         ProportionalTopViewHeightMax="0.33"
@@ -20,8 +27,17 @@
 
             <!-- The TopView expands and collapses -->
             <xamarinForms:CoordinatorLayout.TopView>
-                <BoxView Color="DodgerBlue"
-                         Margin="5" />
+                <Grid>
+                    <BoxView x:Name="_boxView"
+                             Color="DodgerBlue"
+                             Margin="5" 
+                             Opacity="1"/>
+                    <Image x:Name="_image"
+                           Margin="5"
+                           Opacity="0"
+                           Source="https://image.freepik.com/free-vector/vector-portrait-monkey-polygonal-triangle-illustration-monkey-use-as-print-t-shirt-poster_87749-235.jpg" />
+                </Grid>
+
             </xamarinForms:CoordinatorLayout.TopView>
 
             <!-- The BottomView is shown below the TopView and might scroll if its content doesn't fit into the available space -->
@@ -49,15 +65,50 @@
             </xamarinForms:CoordinatorLayout.ActionView>
         </xamarinForms:CoordinatorLayout>
 
-        <Label HorizontalOptions="End"
-               VerticalOptions="Start"
-               Margin="5"
-               Text="{Binding Source={x:Reference _coordinatorLayout}, Path=ExpansionProgress, StringFormat='Expansion progress: {0:F2}'}" />
 
-        <Label HorizontalOptions="End"
-               VerticalOptions="End"
-               Margin="5"
-               Text="{Binding Source={x:Reference _coordinatorLayout}, Path=ScrollProgress,StringFormat='Scroll progress: {0:F2}'}" />
+        <StackLayout Grid.Column="1"
+                     Margin="0,5,5,0"
+                     WidthRequest="200">
+
+            <Label HorizontalOptions="End"
+                   VerticalOptions="Start"
+                   Margin="0,15,0,0"
+                   FontSize="Subtitle"
+                   BackgroundColor="White"
+                   Text="{Binding Source={x:Reference _coordinatorLayout}, Path=ExpansionProgress, StringFormat='Expansion progress: {0:F2}'}" />
+
+            <Label HorizontalOptions="End"
+                   VerticalOptions="End"
+                   Margin="0,15,0,0"
+                   FontSize="Subtitle"
+                   BackgroundColor="White"
+                   Text="{Binding Source={x:Reference _coordinatorLayout}, Path=ScrollProgress,StringFormat='Scroll progress: {0:F2}'}" />
+
+            <Label Margin="0,15,0,0" Text="{Binding Source={x:Reference _coordinatorLayout}, Path=ProportionalTopViewHeightMin, StringFormat='ProportionalTopViewHeightMin: {0:F2}'}" />
+            <Slider Value="{Binding Source={x:Reference _coordinatorLayout}, Path=ProportionalTopViewHeightMin}" />
+
+            <Label Margin="0,15,0,0" Text="{Binding Source={x:Reference _coordinatorLayout}, Path=ProportionalTopViewHeightMax, StringFormat='ProportionalTopViewHeightMax: {0:F2}'}" />
+            <Slider Value="{Binding Source={x:Reference _coordinatorLayout}, Path=ProportionalTopViewHeightMax}" />
+
+            <Label Margin="0,15,0,0" Text="{Binding Source={x:Reference _coordinatorLayout}, Path=ProportionalSnapHeight, StringFormat='ProportionalSnapHeight: {0:F2}'}" />
+            <Slider Value="{Binding Source={x:Reference _coordinatorLayout}, Path=ProportionalSnapHeight}" />
+
+            <Label Margin="0,15,0,0" Text="{Binding Source={x:Reference _coordinatorLayout}, Path=ShouldSnap, StringFormat='ShouldSnap: {0:F2}'}" />
+            <Switch IsToggled="{Binding Source={x:Reference _coordinatorLayout}, Path=ShouldSnap}" />
+
+            <Label Margin="0,15,0,0" Text="{Binding Source={x:Reference _coordinatorLayout}, Path=ShouldKineticScroll, StringFormat='ShouldKineticScroll: {0:F2}'}" />
+            <Switch IsToggled="{Binding Source={x:Reference _coordinatorLayout}, Path=ShouldKineticScroll}" />
+
+            <Label Margin="0,15,0,0" Text="{Binding Source={x:Reference _coordinatorLayout}, Path=ShouldExpandFromKineticScroll, StringFormat='ShouldExpandFromKineticScroll: {0:F2}'}" />
+            <Switch IsToggled="{Binding Source={x:Reference _coordinatorLayout}, Path=ShouldExpandFromKineticScroll}" />
+
+            <Label Margin="0,15,0,0" Text="{Binding Source={x:Reference _coordinatorLayout}, Path=AutohideActionView, StringFormat='AutohideActionView: {0:F2}'}" />
+            <Switch IsToggled="{Binding Source={x:Reference _coordinatorLayout}, Path=AutohideActionView}" />
+
+            <Label Margin="0,15,0,0" Text="{Binding Source={x:Reference _coordinatorLayout}, Path=KineticScrollDragCoefficient, StringFormat='KineticScrollDragCoefficient: {0:F2}'}" />
+            <Slider Value="{Binding Source={x:Reference _coordinatorLayout}, Path=KineticScrollDragCoefficient}" Maximum="0.15" />
+        </StackLayout>
+
     </Grid>
 
 </ContentPage>

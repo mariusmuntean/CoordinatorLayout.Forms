@@ -17,6 +17,8 @@ namespace CoordinatorLayout.XamarinForms.Sample
 
         private void OnCoordinatorLayoutOnExpansionEventHandler(object sender, ExpansionEventArgs args)
         {
+            _image.Opacity = args.Progress;
+            _boxView.Opacity = 1.0 - args.Progress;
         }
 
         private void PopulateBottomView()
