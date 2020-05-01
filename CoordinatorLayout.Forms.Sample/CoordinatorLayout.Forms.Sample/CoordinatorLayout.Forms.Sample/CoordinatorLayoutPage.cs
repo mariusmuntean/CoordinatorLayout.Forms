@@ -20,7 +20,7 @@ namespace CoordinatorLayout.XamarinForms.Sample
             coordinatorLayout.ExpansionEventHandler += (sender, args) => _expansionLbl.Text = $"Expansion: {args.Progress}";
             coordinatorLayout.ScrollEventHandler += (sender, args) => _scrollLbl.Text = $"Scroll {args.Progress}";
             coordinatorLayout.ProportionalTopViewHeightMax = 0.33d;
-            coordinatorLayout.ProportionalTopViewHeightMin = 0.0d;
+            coordinatorLayout.ProportionalTopViewHeightMin = 0.1d;
             coordinatorLayout.ProportionalSnapHeight = 0.3d;
             rootLayout.Children.Add(coordinatorLayout);
 
@@ -71,7 +71,7 @@ namespace CoordinatorLayout.XamarinForms.Sample
                 CascadeInputTransparent = true
             };
 
-            for (var i = 0; i < 15; i++)
+            for (var i = 0; i < 16; i++)
             {
                 stackLayout.Children.Add(new BoxView
                 {

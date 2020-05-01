@@ -192,6 +192,7 @@ namespace CoordinatorLayout.XamarinForms
             {
                 var topViewHeight = Math.Min(parent.Height * _proportionalTopViewHeightMax, Math.Max(parent.Height * _proportionalTopViewHeightMin, _panTotal));
                 _proportionalTopViewHeight = topViewHeight / parent.Height;
+                _panTotal = topViewHeight; // ToDo: investigate if this causes issues
                 OnTopViewHeightChanged();
                 return topViewHeight;
             });
