@@ -12,7 +12,7 @@ namespace Coordinatorlayout.Forms.Sample.macOS
         {
             var style = NSWindowStyle.Closable | NSWindowStyle.Resizable | NSWindowStyle.Titled;
 
-            var rect = new CoreGraphics.CGRect(200, 1000, 1024, 768);
+            var rect = new CoreGraphics.CGRect(80, 1000, 1024, 768);
             MainWindow = new NSWindow(rect, style, NSBackingStore.Buffered, false);
             MainWindow.Title = "Xamarin.Forms on Mac!"; // choose your own Title here
             MainWindow.TitleVisibility = NSWindowTitleVisibility.Hidden;

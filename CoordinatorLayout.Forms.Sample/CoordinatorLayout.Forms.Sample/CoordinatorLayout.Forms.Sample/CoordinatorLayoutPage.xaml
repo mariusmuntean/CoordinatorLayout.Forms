@@ -3,8 +3,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xamarinForms="clr-namespace:CoordinatorLayout.XamarinForms;assembly=CoordinatorLayout.XamarinForms"
-             x:Class="CoordinatorLayout.XamarinForms.Sample.CoordinatorLayoutPage">
-    
+             x:Class="CoordinatorLayout.XamarinForms.Sample.CoordinatorLayoutPage"
+             NavigationPage.HasBackButton="True">
     <Grid>
 
         <Grid.ColumnDefinitions>

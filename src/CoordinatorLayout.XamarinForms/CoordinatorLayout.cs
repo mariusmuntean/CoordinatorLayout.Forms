@@ -35,9 +35,12 @@ namespace CoordinatorLayout.XamarinForms
         private double _bottomViewPanDelta = 0.0d;
 
         private bool _actionViewShowing = true;
+        private Func<double, Direction> _directionCalculator;
 
         public CoordinatorLayout()
         {
+            _directionCalculator = ChooseDirectionCalculator();
+
             _relativeLayout = new RelativeLayout();
 
             _bottomViewPanGestureRecognizer = new PanGestureRecognizer();
@@ -46,6 +49,17 @@ namespace CoordinatorLayout.XamarinForms
             _relativeLayout.GestureRecognizers.Add(_bottomViewPanGestureRecognizer);
 
             Content = _relativeLayout;
+        }
+
+        private Func<double, Direction> ChooseDirectionCalculator()
+        {
+            return Device.RuntimePlatform switch
+            {
+                Device.Android => (delta) => delta > 0.0d ? Direction.down : Direction.up,
+                Device.iOS => (delta) => delta > 0.0d ? Direction.down : Direction.up,
+                Device.macOS => (delta) => delta < 0.0d ? Direction.down : Direction.up,
+                _ => (delta) => delta > 0.0d ? Direction.down : Direction.up
+            };
         }
 
         protected override void OnPropertyChanged(string propertyName = null)
@@ -142,7 +156,7 @@ namespace CoordinatorLayout.XamarinForms
 
                 // remember the new action view
                 _actionView = ActionView;
-                
+
                 // handle the new action view 
                 ShowHideActionView();
             }
@@ -169,7 +183,7 @@ namespace CoordinatorLayout.XamarinForms
                     CascadeInputTransparent = true,
                     Margin = new Thickness(5)
                 };
-                _bottomViewContainer.Scrolled += BottomViewContainerOnScrolled;
+                // _bottomViewContainer.Scrolled += BottomViewContainerOnScrolled;
 
                 _relativeLayout.Children.Add(_bottomViewContainer,
                     Constraint.Constant(0.0d),
@@ -189,6 +203,8 @@ namespace CoordinatorLayout.XamarinForms
             var progress = e.ScrollY / range;
             ScrollEventHandler?.Invoke(this, new ScrollEventArgs(progress));
             ScrollProgress = progress;
+
+            Console.WriteLine($"ScrollView.Y {e.ScrollY}");
         }
 
         private void ReplaceTopView()
@@ -211,7 +227,7 @@ namespace CoordinatorLayout.XamarinForms
 
                 // remember the new top view
                 _topView = TopView;
-                
+
                 // run the height-changed handler
                 OnTopViewHeightChanged();
             }
@@ -247,13 +263,13 @@ namespace CoordinatorLayout.XamarinForms
             {
                 return;
             }
-            
+
             // If autohide isn't desired, then don't do anything
             if (!AutohideActionView)
             {
                 return;
             }
-            
+
             if (_proportionalTopViewHeight <= _proportionalTopViewHeightMin && _actionViewShowing)
             {
                 HideActionView();
@@ -281,6 +297,7 @@ namespace CoordinatorLayout.XamarinForms
 
         private async void BottomViewPanGestureRecognizerOnPanUpdated(object sender, PanUpdatedEventArgs e)
         {
+             
             switch (e.StatusType)
             {
                 case GestureStatus.Started:
@@ -289,8 +306,11 @@ namespace CoordinatorLayout.XamarinForms
                     this.AbortAnimation(SnapToExtremesAnimation);
                     break;
                 case GestureStatus.Running:
+
+                    Console.WriteLine($"e.TotalY: {e.TotalY}");
+
                     _bottomViewPanDelta = e.TotalY - _bottomViewPreviousTotalY;
-                    _bottomViewPanDirection = _bottomViewPanDelta > 0.0d ? Direction.down : Direction.up;
+                    _bottomViewPanDirection = _directionCalculator(_bottomViewPanDelta);
                     _bottomViewPreviousTotalY = e.TotalY;
 
                     break;
@@ -320,7 +340,10 @@ namespace CoordinatorLayout.XamarinForms
 
             if (_bottomViewContainer.ScrollY >= 0.0d && _bottomViewPanDirection == Direction.up && _proportionalTopViewHeight <= _proportionalTopViewHeightMin)
             {
-                var bottomViewScrollY = _bottomViewContainer.ScrollY + (-panDelta);
+                Console.WriteLine(".");
+                Console.WriteLine($"_bottomViewContainer.ScrollY: {_bottomViewContainer.ScrollY}");
+                
+                var bottomViewScrollY = _bottomViewContainer.ScrollY + (panDelta);
 
                 bottomViewScrollY = Clamp(bottomViewScrollY, 0.0d, _bottomViewContainer.Content.Height - _bottomViewContainer.Height);
                 DebugWriteLine($"Scrolling up to: {bottomViewScrollY}");
@@ -339,12 +362,17 @@ namespace CoordinatorLayout.XamarinForms
             else
             {
                 // Don't increase if already at maximum && don't decrease if already at minimum
-                if (panDelta > 0.0d && _proportionalTopViewHeight >= _proportionalTopViewHeightMax
-                    || panDelta < 0.0d && _proportionalTopViewHeight <= _proportionalTopViewHeightMin)
+// #if __MACOS__
+                if ((_bottomViewPanDirection == Direction.down && _proportionalTopViewHeight >= _proportionalTopViewHeightMax)
+                    || (_bottomViewPanDirection == Direction.up && _proportionalTopViewHeight <= _proportionalTopViewHeightMin))
+// #else
+                // if (panDelta > 0.0d && _proportionalTopViewHeight >= _proportionalTopViewHeightMax
+                //     || panDelta < 0.0d && _proportionalTopViewHeight <= _proportionalTopViewHeightMin)
+// #endif
                 {
                     return false;
                 }
-                
+
                 // Don't expand/collapse during kinetic scrolling if not desired
                 if (panSource == PanSource.KineticScroll && !ShouldExpandFromKineticScroll)
                 {
@@ -364,7 +392,7 @@ namespace CoordinatorLayout.XamarinForms
             var isSnapping = Snap();
             if (!isSnapping)
             {
-                LaunchKineticScroll(bottomViewPanDelta);
+                // LaunchKineticScroll(bottomViewPanDelta);
             }
         }
 
@@ -373,7 +401,7 @@ namespace CoordinatorLayout.XamarinForms
             var isSnapping = Snap();
             if (!isSnapping)
             {
-                LaunchKineticScroll(bottomViewPanDelta);
+                // LaunchKineticScroll(bottomViewPanDelta);
             }
         }
 

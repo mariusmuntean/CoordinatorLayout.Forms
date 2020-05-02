@@ -1,6 +1,7 @@
 <Project Sdk="MSBuild.Sdk.Extras/2.0.54">
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;Xamarin.iOS10;MonoAndroid90;</TargetFrameworks>
+        <TargetFrameworks>netstandard2.0;Xamarin.iOS10;Xamarin.Mac20;MonoAndroid90;</TargetFrameworks>
+        <LangVersion>8.0</LangVersion>
 
         <!--Assembly and Namespace info -->
         <AssemblyName>CoordinatorLayout.XamarinForms</AssemblyName>
@@ -65,6 +66,7 @@
         <Compile Include="**\*.shared.cs" />
         <None Include="Renderers\BottomViewScrollViewRenderer.android.cs" />
         <None Include="Renderers\ScrollViewRenderer.ios.cs" />
+        <None Include="Renderers\ScrollViewRenderer.macos.cs" />
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
@@ -78,6 +80,10 @@
 
     <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
         <Compile Include="**\*.ios.cs" />
+    </ItemGroup>
+    
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac')) ">
+        <Compile Include="**\*.macos.cs" />
     </ItemGroup>
 
     <ItemGroup>
