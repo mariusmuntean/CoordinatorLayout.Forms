@@ -50,7 +50,7 @@ In the media folder there's a video of the sample project.
 
 ![Sample](media/CoordinatorLayout.m4v)
 
-If YouTube is your thing: ![view on YT](https://youtu.be/GIpSPpPFXtg)
+If YouTube is your thing: https://youtu.be/GIpSPpPFXtg
 
 As usual you can do everything you want with my code. Have fun!
 
