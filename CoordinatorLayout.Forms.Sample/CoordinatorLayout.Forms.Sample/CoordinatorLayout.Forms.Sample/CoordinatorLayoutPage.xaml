@@ -15,7 +15,7 @@
 
         <xamarinForms:CoordinatorLayout x:Name="_coordinatorLayout"
                                         Grid.Column="0"
-                                        InitialExpansionState="Collapsed"
+                                        InitialExpansionState="Expanded"
                                         ExpansionEventHandler="OnCoordinatorLayoutOnExpansionEventHandler"
                                         ScrollEventHandler="OnCoordinatorLayoutOnScrollEventHandler"
                                         ProportionalTopViewHeightMax="0.33"

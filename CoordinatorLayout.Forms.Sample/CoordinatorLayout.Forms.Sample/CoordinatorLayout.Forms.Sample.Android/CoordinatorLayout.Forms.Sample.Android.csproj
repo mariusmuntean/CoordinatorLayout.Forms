@@ -76,7 +76,7 @@
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\..\src\CoordinatorLayout.XamarinForms\CoordinatorLayout.XamarinForms.csproj">
-          <Project>{66787A9B-BBC5-4700-B512-F77BEB1A31BF}</Project>
+          <Project>{4C3EDF30-DF01-4069-A85C-3C8763913694}</Project>
           <Name>CoordinatorLayout.XamarinForms</Name>
         </ProjectReference>
         <ProjectReference Include="..\CoordinatorLayout.Forms.Sample\CoordinatorLayout.Forms.Sample.csproj">
