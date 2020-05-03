@@ -61,16 +61,16 @@ namespace CoordinatorLayout.XamarinForms.Renderers
             this.AcceptsTouchEvents = !Element.InputTransparent;
         }
 
-        public override void ScrollWheel(NSEvent theEvent)
-        {
-            if (this.Element != null && this.Element.InputTransparent)
-            {
-                // don't pass through scroll events when InputTransparent is true
-            }
-            else
-            {
-                base.ScrollWheel(theEvent); 
-            }
-        }
+        // public override void ScrollWheel(NSEvent theEvent)
+        // {
+            // if (this.Element != null && this.Element.InputTransparent)
+            // {
+            //     // don't pass through scroll events when InputTransparent is true
+            // }
+            // else
+            // {
+                // base.ScrollWheel(theEvent); 
+            // }
+        // }
     }
 }
