@@ -48,7 +48,7 @@ There's a nice sample application to get you going.
 
 In the media folder there's a video of the sample project.
 
-![Sample](media/CoordinatorLayout.m4v)
+![Sample Video](media/CoordinatorLayout.mp4)
 
 If YouTube is your thing: https://youtu.be/GIpSPpPFXtg
 
