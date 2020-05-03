@@ -38,9 +38,9 @@ Add the NuGet package to the shared project (.Net Standard) and to the platform 
 | `ActionView`                            | A view to be shown between the top view and bottom view. This view usually contains controls that trigger an action, e.g. a Button.                                                                                                   |
 | `ExpansionEventHandler`                 | Event that is raised when the top view expands or collapses. Argument values range from 0.0 (collapsed) to 1.0 (expanded).                                                                                                            |
 | `ScrollEventHandler`                    | Event that is raised when the bottom view is scrolled. Argument values range from 0.0 (not scrolled) to 1.0 (fully scrolled).                                                                                                         |
+| `InitialExpansionState`                 | The expansion state when the control appears, e.g. Expanded or Collapsed.                                                                                                                                                             |
 
 ### Note: the action view is hosted in a parent container. In case that your ActionView isn't visible it is likely that the parent container is too small for it. Simply adjust the property ProportionalActionViewContainerHeight to a larger value.
-
 
 ## Sample
 
