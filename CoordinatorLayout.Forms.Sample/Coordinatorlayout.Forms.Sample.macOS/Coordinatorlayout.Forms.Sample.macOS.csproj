@@ -28,7 +28,11 @@
         <IncludeMonoRuntime>false</IncludeMonoRuntime>
         <UseSGen>true</UseSGen>
         <UseRefCounting>true</UseRefCounting>
-        <PlatformTarget>x86</PlatformTarget>
+        <PlatformTarget>x64</PlatformTarget>
+        <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
+        <PackageSigningKey>3rd Party Mac Developer Installer</PackageSigningKey>
+        <Profiling>true</Profiling>
+        <AOTMode>None</AOTMode>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
         <DebugType>pdbonly</DebugType>
@@ -43,7 +47,8 @@
         <UseSGen>true</UseSGen>
         <UseRefCounting>true</UseRefCounting>
         <LinkMode>SdkOnly</LinkMode>
-        <PlatformTarget>x86</PlatformTarget>
+        <PlatformTarget>x64</PlatformTarget>
+        <AOTMode>SDK</AOTMode>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="System" />

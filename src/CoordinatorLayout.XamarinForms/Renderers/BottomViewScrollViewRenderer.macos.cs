@@ -32,23 +32,11 @@ namespace CoordinatorLayout.XamarinForms.Renderers
 
         void HandlePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            // if (e.PropertyName == PlatformConfiguration.iOSSpecific.ScrollView.ShouldDelayContentTouchesProperty.PropertyName)
-            //     UpdateDelaysContentTouches();
-            // else
-            // if (e.PropertyName == ScrollView.ContentSizeProperty.PropertyName)
-            //     UpdateContentSize();
-            // else if (e.PropertyName == VisualElement.BackgroundColorProperty.PropertyName)
-            //     UpdateBackgroundColor();
-            // else
             if (e.PropertyName == VisualElement.InputTransparentProperty.PropertyName)
             {
                 // UpdateTouches();
             }
 
-            // else if (e.PropertyName == ScrollView.VerticalScrollBarVisibilityProperty.PropertyName)
-            //     UpdateVerticalScrollBarVisibility();
-            // else if (e.PropertyName == ScrollView.HorizontalScrollBarVisibilityProperty.PropertyName)
-            //     UpdateHorizontalScrollBarVisibility();
         }
 
         void UpdateTouches()
@@ -61,16 +49,19 @@ namespace CoordinatorLayout.XamarinForms.Renderers
             this.AcceptsTouchEvents = !Element.InputTransparent;
         }
 
-        // public override void ScrollWheel(NSEvent theEvent)
-        // {
-            // if (this.Element != null && this.Element.InputTransparent)
-            // {
-            //     // don't pass through scroll events when InputTransparent is true
-            // }
-            // else
-            // {
-                // base.ScrollWheel(theEvent); 
-            // }
-        // }
+        public override void ScrollWheel(NSEvent theEvent)
+        {
+            base.ScrollWheel(theEvent);
+
+            // If there is a XamarinForms BottomViewScrollView then pass the event
+            if (this.Element is BottomViewScrollView scrollView)
+            {
+                // But only if we've reached the scroll bounds
+                if (VerticalScroller.FloatValue <= 0.0f || VerticalScroller.FloatValue >= 1.0f)
+                {
+                    scrollView.SendScrollUpdatedEvent(new ScrollUpdatedEventArgs(theEvent.DeltaX, theEvent.DeltaY));
+                }
+            }
+        }
     }
 }

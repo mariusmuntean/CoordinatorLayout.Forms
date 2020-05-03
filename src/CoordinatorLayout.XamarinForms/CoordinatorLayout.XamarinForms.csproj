@@ -51,7 +51,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <!-- This None is here so the conditionally included files show up in the Solution Explorer -->
         <Compile Include="BottomViewScrollView.cs" />
         <Compile Include="CoordinatorLayout.cs" />
         <Compile Include="CoordinatorLayoutDP.cs" />
@@ -60,13 +59,11 @@
         <Compile Include="InitialExpansionState.cs" />
         <Compile Include="PanSource.cs" />
         <Compile Include="ScrollEventArgs.cs" />
+        <!-- This None is here so the conditionally included files show up in the Solution Explorer -->
         <None Include="**\*.cs;**\*.xml;**\*.axml;**\*.png" Exclude="obj\**\*.*;bin\**\*.*;bin;obj" />
 
         <!-- We will compile anything ending in .shared.cs  You can change this -->
         <Compile Include="**\*.shared.cs" />
-        <None Include="Renderers\BottomViewScrollViewRenderer.android.cs" />
-        <None Include="Renderers\ScrollViewRenderer.ios.cs" />
-        <None Include="Renderers\ScrollViewRenderer.macos.cs" />
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">

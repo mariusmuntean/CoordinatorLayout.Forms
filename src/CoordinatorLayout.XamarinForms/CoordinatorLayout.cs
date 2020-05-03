@@ -59,7 +59,7 @@ namespace CoordinatorLayout.XamarinForms
             {
                 Device.Android => (delta) => delta > 0.0d ? Direction.down : Direction.up,
                 Device.iOS => (delta) => delta > 0.0d ? Direction.down : Direction.up,
-                Device.macOS => (delta) => delta < 0.0d ? Direction.down : Direction.up,
+                Device.macOS => (delta) => delta > 0.0d ? Direction.down : Direction.up,
                 _ => (delta) => delta > 0.0d ? Direction.down : Direction.up
             };
         }
@@ -170,6 +170,7 @@ namespace CoordinatorLayout.XamarinForms
             if (_bottomView != null)
             {
                 _bottomViewContainer.Scrolled -= BottomViewContainerOnScrolled;
+                _bottomViewContainer.ScrollUpdatedEvent -= BottomViewContainerOnScrollUpdated;
                 _bottomViewContainer.Content = null;
                 _relativeLayout.Children.Remove(_bottomViewContainer);
             }
@@ -185,7 +186,9 @@ namespace CoordinatorLayout.XamarinForms
                     CascadeInputTransparent = true,
                     Margin = new Thickness(5)
                 };
-                // _bottomViewContainer.Scrolled += BottomViewContainerOnScrolled;
+                // subscribe to scroll events
+                _bottomViewContainer.Scrolled += BottomViewContainerOnScrolled;
+                _bottomViewContainer.ScrollUpdatedEvent += BottomViewContainerOnScrollUpdated;
 
                 _relativeLayout.Children.Add(_bottomViewContainer,
                     Constraint.Constant(0.0d),
@@ -207,6 +210,13 @@ namespace CoordinatorLayout.XamarinForms
             ScrollProgress = progress;
 
             Console.WriteLine($"ScrollView.Y {e.ScrollY}");
+        }
+
+        public async void BottomViewContainerOnScrollUpdated(object sender, ScrollUpdatedEventArgs args)
+        {
+            Console.WriteLine($"x: {args.TotalX} y: {args.TotalY}");
+            var panDirection = _directionCalculator(args.TotalY);
+            await HandlePan(PanSource.PanGesture, panDirection, args.TotalY);
         }
 
         private void ReplaceTopView()
@@ -327,11 +337,11 @@ namespace CoordinatorLayout.XamarinForms
 
             if (e.StatusType == GestureStatus.Running && _topView != null && _bottomView != null)
             {
-                await HandlePan(PanSource.PanGesture, _bottomViewPanDelta);
+                await HandlePan(PanSource.PanGesture, _bottomViewPanDirection, _bottomViewPanDelta);
             }
         }
 
-        private async Task<bool> HandlePan(PanSource panSource, double panDelta)
+        private async Task<bool> HandlePan(PanSource panSource, Direction panDirection, double panDelta)
         {
             // Stop the kinetic scrolling while the finger is on the screen
             if (panSource != PanSource.KineticScroll)
@@ -339,7 +349,7 @@ namespace CoordinatorLayout.XamarinForms
                 _bottomViewContainer.AbortAnimation(KineticScrollAnimationName);
             }
 
-            if (_bottomViewContainer.ScrollY >= 0.0d && _bottomViewPanDirection == Direction.up && _proportionalTopViewHeight <= _proportionalTopViewHeightMin)
+            if (_bottomViewContainer.ScrollY >= 0.0d && panDirection == Direction.up && _proportionalTopViewHeight <= _proportionalTopViewHeightMin)
             {
                 Console.WriteLine(".");
                 Console.WriteLine($"_bottomViewContainer.ScrollY: {_bottomViewContainer.ScrollY}");
@@ -351,7 +361,7 @@ namespace CoordinatorLayout.XamarinForms
                 await _bottomViewContainer.ScrollToAsync(0.0d, bottomViewScrollY, false);
                 return true;
             }
-            else if (_bottomViewContainer.ScrollY > 0.0d && _bottomViewPanDirection == Direction.down && _proportionalTopViewHeight <= _proportionalTopViewHeightMin)
+            else if (_bottomViewContainer.ScrollY > 0.0d && panDirection == Direction.down && _proportionalTopViewHeight <= _proportionalTopViewHeightMin)
             {
                 var bottomViewScrollY = _bottomViewContainer.ScrollY + (-panDelta);
 
@@ -363,13 +373,13 @@ namespace CoordinatorLayout.XamarinForms
             else
             {
                 // Don't increase if already at maximum && don't decrease if already at minimum
-// #if __MACOS__
-                if ((_bottomViewPanDirection == Direction.down && _proportionalTopViewHeight >= _proportionalTopViewHeightMax)
-                    || (_bottomViewPanDirection == Direction.up && _proportionalTopViewHeight <= _proportionalTopViewHeightMin))
-// #else
-                    // if (panDelta > 0.0d && _proportionalTopViewHeight >= _proportionalTopViewHeightMax
-                    //     || panDelta < 0.0d && _proportionalTopViewHeight <= _proportionalTopViewHeightMin)
-// #endif
+                // #if __MACOS__
+                if ((panDirection == Direction.down && _proportionalTopViewHeight >= _proportionalTopViewHeightMax)
+                    || (panDirection == Direction.up && _proportionalTopViewHeight <= _proportionalTopViewHeightMin))
+                // #else
+                // if (panDelta > 0.0d && _proportionalTopViewHeight >= _proportionalTopViewHeightMax
+                //     || panDelta < 0.0d && _proportionalTopViewHeight <= _proportionalTopViewHeightMin)
+                // #endif
                 {
                     return false;
                 }
@@ -380,7 +390,7 @@ namespace CoordinatorLayout.XamarinForms
                     return false;
                 }
 
-                DebugWriteLine($"Panning {_bottomViewPanDirection} to {_panTotal}");
+                DebugWriteLine($"Panning {panDirection} to {_panTotal}");
                 _panTotal += panDelta;
                 _relativeLayout.ForceLayout();
 
@@ -425,7 +435,8 @@ namespace CoordinatorLayout.XamarinForms
             {
                 DebugWriteLine($"Kinetic: d={d}   d1={d1}");
                 // _bottomViewContainer.ScrollToAsync(0, _bottomViewContainer.ScrollY + (Math.Sign(-d) * d1), false);
-                var handled = HandlePan(PanSource.KineticScroll, Math.Sign(d) * d1).GetAwaiter().GetResult();
+                var panDirection = _directionCalculator(bottomViewPanDelta);
+                var handled = HandlePan(PanSource.KineticScroll, panDirection, Math.Sign(d) * d1).GetAwaiter().GetResult();
 
                 // Returning true means "keep going"
                 return handled;
