@@ -5,6 +5,7 @@
         <!--Assembly and Namespace info -->
         <AssemblyName>CoordinatorLayout.XamarinForms</AssemblyName>
         <RootNamespace>CoordinatorLayout.XamarinForms</RootNamespace>
+        <LangVersion>8.0</LangVersion>
 
         <Product>$(AssemblyName) ($(TargetFramework))</Product>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
@@ -19,14 +20,13 @@
         <DefineConstants>$(DefineConstants);</DefineConstants>
 
         <PackOnBuild>true</PackOnBuild>
-        <PackageVersion>1.1</PackageVersion>
+        <PackageVersion>1.2</PackageVersion>
         <Authors>Marius Muntean</Authors>
         <Copyright>2020</Copyright>
         <Owners>Marius Muntean</Owners>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/mariusmuntean/CoordinatorLayout.Forms</PackageProjectUrl>
-        <PackageReleaseNotes>First release.
-The control is already quite customizable. Check it out!</PackageReleaseNotes>
+        <PackageReleaseNotes>Added the option to choose the initial expansion state, i.e either Expanded or Collapsed</PackageReleaseNotes>
         <PackageTags>xamarinforms customcontrol coordinatorlayout</PackageTags>
         <Title>CoordinatorLayout.XamarinForms</Title>
         <Description>A custom control for Xamarin.Forms, that shows an expanding top view and a scrollable bottom view.</Description>
@@ -56,6 +56,7 @@ The control is already quite customizable. Check it out!</PackageReleaseNotes>
         <Compile Include="CoordinatorLayoutDP.cs" />
         <Compile Include="Direction.cs" />
         <Compile Include="ExpansionEventArgs.cs" />
+        <Compile Include="InitialExpansionState.cs" />
         <Compile Include="PanSource.cs" />
         <Compile Include="ScrollEventArgs.cs" />
         <None Include="**\*.cs;**\*.xml;**\*.axml;**\*.png" Exclude="obj\**\*.*;bin\**\*.*;bin;obj" />

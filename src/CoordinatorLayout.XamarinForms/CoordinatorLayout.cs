@@ -79,6 +79,18 @@ namespace CoordinatorLayout.XamarinForms
                 }
             }
 
+            if (propertyName == InitialExpansionStateProperty.PropertyName)
+            {
+                // Computing the exact value is not necessary as the Constraints for the top view will "clamp" it.
+                _panTotal = InitialExpansionState switch
+                {
+                    InitialExpansionState.Collapsed => 0.0d,
+                    InitialExpansionState.Expanded => double.MaxValue,
+                    _ => 0.0d
+                };
+                _relativeLayout.ForceLayout();
+            }
+
             if (propertyName == TopViewProperty.PropertyName)
             {
                 // Replace all views

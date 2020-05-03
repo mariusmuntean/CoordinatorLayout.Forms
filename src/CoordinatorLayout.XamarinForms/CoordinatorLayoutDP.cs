@@ -237,5 +237,22 @@ namespace CoordinatorLayout.XamarinForms
             get => (double) GetValue(ProportionalActionViewContainerHeightProperty);
             set => SetValue(ProportionalActionViewContainerHeightProperty, value);
         }
+        
+        public static readonly BindableProperty InitialExpansionStateProperty = BindableProperty.Create(
+            nameof(InitialExpansionState),
+            typeof(InitialExpansionState),
+            typeof(CoordinatorLayout),
+            InitialExpansionState.Collapsed
+        );
+
+        /// <summary>
+        ///  The expansion state when the control appears, e.g. Expanded or Collapsed.
+        /// </summary>
+        public InitialExpansionState InitialExpansionState
+        {
+            get => (InitialExpansionState) GetValue(InitialExpansionStateProperty);
+            set => SetValue(InitialExpansionStateProperty, value);
+        }
+        
     }
 }

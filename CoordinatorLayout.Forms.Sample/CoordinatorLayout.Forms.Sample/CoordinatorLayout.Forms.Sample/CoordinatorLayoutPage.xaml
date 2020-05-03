@@ -4,7 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xamarinForms="clr-namespace:CoordinatorLayout.XamarinForms;assembly=CoordinatorLayout.XamarinForms"
              x:Class="CoordinatorLayout.XamarinForms.Sample.CoordinatorLayoutPage">
-
+    
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -15,6 +15,7 @@
 
         <xamarinForms:CoordinatorLayout x:Name="_coordinatorLayout"
                                         Grid.Column="0"
+                                        InitialExpansionState="Collapsed"
                                         ExpansionEventHandler="OnCoordinatorLayoutOnExpansionEventHandler"
                                         ScrollEventHandler="OnCoordinatorLayoutOnScrollEventHandler"
                                         ProportionalTopViewHeightMax="0.33"
@@ -106,6 +107,7 @@
 
                 <Label Margin="0,15,0,0" Text="{Binding Source={x:Reference _coordinatorLayout}, Path=KineticScrollDragCoefficient, StringFormat='KineticScrollDragCoefficient: {0:F2}'}" />
                 <Slider Value="{Binding Source={x:Reference _coordinatorLayout}, Path=KineticScrollDragCoefficient}" Maximum="0.15" />
+                
             </StackLayout>
         </ScrollView>
 
