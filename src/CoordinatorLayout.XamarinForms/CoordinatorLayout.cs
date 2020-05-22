@@ -267,6 +267,12 @@ namespace CoordinatorLayout.XamarinForms
 
         private void ShowActionView()
         {
+            // Nothing to do as long as no ActionView/Container present
+            if (_actionViewContainer?.Content == null)
+            {
+                return;
+            }
+
             _actionViewShowing = true;
             _actionViewContainer.Content.FadeTo(1.0d, easing: Easing.CubicInOut);
             _actionViewContainer.Content.ScaleTo(1.0d, easing: Easing.CubicInOut);
