@@ -1,6 +1,6 @@
 <Project Sdk="MSBuild.Sdk.Extras/2.0.54">
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;Xamarin.iOS10;MonoAndroid90;</TargetFrameworks>
+        <TargetFrameworks>netstandard2.0;Xamarin.iOS10;MonoAndroid10.0;</TargetFrameworks>
 
         <!--Assembly and Namespace info -->
         <AssemblyName>CoordinatorLayout.XamarinForms</AssemblyName>
@@ -20,7 +20,7 @@
         <DefineConstants>$(DefineConstants);</DefineConstants>
 
         <PackOnBuild>true</PackOnBuild>
-        <PackageVersion>1.2</PackageVersion>
+        <PackageVersion>1.2.1</PackageVersion>
         <Authors>Marius Muntean</Authors>
         <Copyright>2020</Copyright>
         <Owners>Marius Muntean</Owners>
@@ -81,6 +81,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Xamarin.Forms" Version="4.5.0.657" />
+        <PackageReference Include="Xamarin.Forms" Version="4.6.0.800" />
     </ItemGroup>
 </Project>

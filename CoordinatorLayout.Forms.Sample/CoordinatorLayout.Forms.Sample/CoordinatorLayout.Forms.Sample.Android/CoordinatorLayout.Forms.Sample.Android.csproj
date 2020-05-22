@@ -14,7 +14,7 @@
         <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
         <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
         <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-        <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
         <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -51,13 +51,13 @@
     <ItemGroup>
         <PackageReference Include="Xamarin.AndroidX.Browser" Version="1.2.0" />
         <PackageReference Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="2.2.0" />
-        <PackageReference Include="Xamarin.Forms" Version="4.5.0.657" />
+        <PackageReference Include="Xamarin.Forms" Version="4.6.0.800" />
         <PackageReference Include="Xamarin.Google.Android.Material" Version="1.0.0" />
         <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.1.0" />
         <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4" Version="1.0.0" />
         <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0" />
         <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.1.0" />
-    <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.5" /></ItemGroup>
+    </ItemGroup>
     <ItemGroup>
         <Compile Include="MainActivity.cs" />
         <Compile Include="Resources\Resource.Designer.cs" />

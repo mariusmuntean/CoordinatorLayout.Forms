@@ -3,6 +3,7 @@ using CoordinatorLayout.XamarinForms.Renderers;
 using CoordinatorLayout.XamarinForms;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using Android.Content;
 
 [assembly: ExportRenderer(typeof(BottomViewScrollView), typeof(BottomViewScrollViewRenderer))]
 
@@ -10,6 +11,10 @@ namespace CoordinatorLayout.XamarinForms.Renderers
 {
     public class BottomViewScrollViewRenderer : ScrollViewRenderer
     {
+        public BottomViewScrollViewRenderer(Context context) : base(context)
+        {
+        }
+
         public override bool DispatchTouchEvent(MotionEvent e)
         {
             // For some reason the ScrollView on Android doesn't fully respect the "InputTransparent" so it has to be done here. No worries, multi-targeting is great!.

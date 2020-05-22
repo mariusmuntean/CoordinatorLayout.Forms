@@ -109,7 +109,7 @@
         <Reference Include="Xamarin.iOS" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Xamarin.Forms" Version="4.5.0.657" />
+        <PackageReference Include="Xamarin.Forms" Version="4.6.0.800" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\..\src\CoordinatorLayout.XamarinForms\CoordinatorLayout.XamarinForms.csproj">

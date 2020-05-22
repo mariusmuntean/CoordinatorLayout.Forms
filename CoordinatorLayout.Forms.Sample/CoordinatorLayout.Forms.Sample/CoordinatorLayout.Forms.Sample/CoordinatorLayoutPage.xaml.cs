@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace CoordinatorLayout.XamarinForms.Sample
@@ -23,15 +24,9 @@ namespace CoordinatorLayout.XamarinForms.Sample
 
         private void PopulateBottomView()
         {
-            var rand = new Random();
-
             for (var i = 0; i < 55; i++)
             {
-                _stackLayout.Children.Add(new BoxView
-                {
-                    Color = new Color(rand.NextDouble(), rand.NextDouble(), rand.NextDouble()).WithLuminosity(0.8).WithSaturation(0.8),
-                    InputTransparent = true
-                });
+                _stackLayout.Children.Add(App.GetSwipeView(i));
             }
         }
     }

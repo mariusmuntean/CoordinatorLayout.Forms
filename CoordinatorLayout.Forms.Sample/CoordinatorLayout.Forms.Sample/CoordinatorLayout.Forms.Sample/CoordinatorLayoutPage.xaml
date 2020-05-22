@@ -24,7 +24,7 @@
                                         ShouldSnap="true"
                                         ShouldKineticScroll="true"
                                         ShouldExpandFromKineticScroll="true"
-                                        AutohideActionView="true">
+                                        AutohideActionView="false">
 
             <!-- The TopView expands and collapses -->
             <xamarinForms:CoordinatorLayout.TopView>

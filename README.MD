@@ -14,7 +14,7 @@ Here's a quick rundown of the control's features:
 
 | Package                        | Version                                                                                                                                      | Dependencies                                                                                                     |
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| CoordinatorLayout.XamarinForms | [![Nuget](https://img.shields.io/nuget/vpre/CoordinatorLayout.XamarinForms)](https://www.nuget.org/packages/CoordinatorLayout.XamarinForms/) | [![Nuget](https://img.shields.io/badge/Xamarin.Forms-v4.5-green)](https://www.nuget.org/packages/Xamarin.Forms/) |
+| CoordinatorLayout.XamarinForms | [![Nuget](https://img.shields.io/nuget/vpre/CoordinatorLayout.XamarinForms)](https://www.nuget.org/packages/CoordinatorLayout.XamarinForms/) | [![Nuget](https://img.shields.io/badge/Xamarin.Forms-v4.6.0.800-green)](https://www.nuget.org/packages/Xamarin.Forms/) |
 
 Add the NuGet package to the shared project (.Net Standard) and to the platform specific projects (e.g. Android and iOS).
 

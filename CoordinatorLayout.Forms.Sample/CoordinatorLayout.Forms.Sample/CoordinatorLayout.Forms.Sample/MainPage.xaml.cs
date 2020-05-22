@@ -8,6 +8,7 @@ namespace CoordinatorLayout.XamarinForms.Sample
         public MainPage()
         {
             InitializeComponent();
+            _stackLayout.Children.Add(App.GetSwipeView(1));
         }
 
         private void Button_OnClicked(object sender, EventArgs e)

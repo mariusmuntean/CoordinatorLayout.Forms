@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CoordinatorLayout.XamarinForms.Sample.MainPage">
 
-    <StackLayout>
+    <StackLayout x:Name="_stackLayout">
         <Button Text="Coordinator" Clicked="Button_OnClicked"></Button>
     </StackLayout>
 
