@@ -1439,7 +1439,6 @@ namespace CoordinatorLayout.XamarinForms.Sample.Android
 			global::CoordinatorLayout.XamarinForms.Resource.Style.Animation_AppCompat_DropDownUp = global::CoordinatorLayout.XamarinForms.Sample.Android.Resource.Style.Animation_AppCompat_DropDownUp;
 			global::CoordinatorLayout.XamarinForms.Resource.Style.Animation_AppCompat_Tooltip = global::CoordinatorLayout.XamarinForms.Sample.Android.Resource.Style.Animation_AppCompat_Tooltip;
 			global::CoordinatorLayout.XamarinForms.Resource.Style.Animation_Design_BottomSheetDialog = global::CoordinatorLayout.XamarinForms.Sample.Android.Resource.Style.Animation_Design_BottomSheetDialog;
-			global::CoordinatorLayout.XamarinForms.Resource.Style.AppCompatDialogStyle = global::CoordinatorLayout.XamarinForms.Sample.Android.Resource.Style.AppCompatDialogStyle;
 			global::CoordinatorLayout.XamarinForms.Resource.Style.Base_AlertDialog_AppCompat = global::CoordinatorLayout.XamarinForms.Sample.Android.Resource.Style.Base_AlertDialog_AppCompat;
 			global::CoordinatorLayout.XamarinForms.Resource.Style.Base_AlertDialog_AppCompat_Light = global::CoordinatorLayout.XamarinForms.Sample.Android.Resource.Style.Base_AlertDialog_AppCompat_Light;
 			global::CoordinatorLayout.XamarinForms.Resource.Style.Base_Animation_AppCompat_Dialog = global::CoordinatorLayout.XamarinForms.Sample.Android.Resource.Style.Base_Animation_AppCompat_Dialog;
@@ -1633,8 +1632,6 @@ namespace CoordinatorLayout.XamarinForms.Sample.Android
 			global::CoordinatorLayout.XamarinForms.Resource.Style.CardView_Dark = global::CoordinatorLayout.XamarinForms.Sample.Android.Resource.Style.CardView_Dark;
 			global::CoordinatorLayout.XamarinForms.Resource.Style.CardView_Light = global::CoordinatorLayout.XamarinForms.Sample.Android.Resource.Style.CardView_Light;
 			global::CoordinatorLayout.XamarinForms.Resource.Style.collectionViewStyle = global::CoordinatorLayout.XamarinForms.Sample.Android.Resource.Style.collectionViewStyle;
-			global::CoordinatorLayout.XamarinForms.Resource.Style.MainTheme = global::CoordinatorLayout.XamarinForms.Sample.Android.Resource.Style.MainTheme;
-			global::CoordinatorLayout.XamarinForms.Resource.Style.MainTheme_Base = global::CoordinatorLayout.XamarinForms.Sample.Android.Resource.Style.MainTheme_Base;
 			global::CoordinatorLayout.XamarinForms.Resource.Style.Platform_AppCompat = global::CoordinatorLayout.XamarinForms.Sample.Android.Resource.Style.Platform_AppCompat;
 			global::CoordinatorLayout.XamarinForms.Resource.Style.Platform_AppCompat_Light = global::CoordinatorLayout.XamarinForms.Sample.Android.Resource.Style.Platform_AppCompat_Light;
 			global::CoordinatorLayout.XamarinForms.Resource.Style.Platform_MaterialComponents = global::CoordinatorLayout.XamarinForms.Sample.Android.Resource.Style.Platform_MaterialComponents;
