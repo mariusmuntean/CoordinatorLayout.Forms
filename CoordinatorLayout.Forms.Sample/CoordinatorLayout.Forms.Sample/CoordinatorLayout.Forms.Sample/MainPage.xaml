@@ -5,6 +5,7 @@
 
     <StackLayout>
         <Button Text="Coordinator" Clicked="Button_OnClicked"></Button>
+        <Button Text="Blinkist" Clicked="Blinkist_OnClicked"></Button>
     </StackLayout>
 
 </ContentPage>

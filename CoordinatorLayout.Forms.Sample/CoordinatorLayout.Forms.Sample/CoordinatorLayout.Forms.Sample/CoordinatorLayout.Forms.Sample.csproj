@@ -24,5 +24,21 @@
         <SubType>Designer</SubType>
         <Generator></Generator>
       </EmbeddedResource>
+      <EmbeddedResource Update="Blinkist\BlinkistPage.xaml">
+        <SubType>Designer</SubType>
+        <Generator></Generator>
+      </EmbeddedResource>
+      <None Remove="Images\plus.png" />
+      <EmbeddedResource Include="Images\plus.png" />
+      <None Remove="Images\x.png" />
+      <EmbeddedResource Include="Images\x.png" />
+      <None Remove="Images\wrench.jpg" />
+      <EmbeddedResource Include="Images\wrench.jpg" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Blinkist\BlinkistPage.xaml.cs">
+        <DependentUpon>BlinkistPage.xaml</DependentUpon>
+      </Compile>
     </ItemGroup>
 </Project>

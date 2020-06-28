@@ -1,4 +1,5 @@
 ﻿using System;
+using CoordinatorLayout.XamarinForms.Sample.Blinkist;
 using Xamarin.Forms;
 
 namespace CoordinatorLayout.XamarinForms.Sample
@@ -13,6 +14,11 @@ namespace CoordinatorLayout.XamarinForms.Sample
         private void Button_OnClicked(object sender, EventArgs e)
         {
             this.Navigation.PushAsync(new CoordinatorLayoutPage(), true);
+        }
+
+        private void Blinkist_OnClicked(object sender, EventArgs e)
+        {
+            this.Navigation.PushAsync(new BlinkistPage(), true);
         }
     }
 }
