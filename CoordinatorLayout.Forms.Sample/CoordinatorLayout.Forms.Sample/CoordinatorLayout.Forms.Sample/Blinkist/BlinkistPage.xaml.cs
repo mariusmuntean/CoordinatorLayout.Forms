@@ -22,7 +22,7 @@ namespace CoordinatorLayout.XamarinForms.Sample.Blinkist
         {
             if (ActionFrame != null)
             {
-                ActionFrame.CornerRadius = (float) (MinCornerRadius + e.Progress * MaxCornerRadius);
+                ActionFrame.CornerRadius = (float) Math.Max(0.0, MinCornerRadius + e.Progress * MaxCornerRadius);
 
                 var newHorizontalMargin = MinHorizontalMargin + e.Progress * MaxHorizontalMargin;
                 ActionFrame.Margin = new Thickness(newHorizontalMargin, ActionFrame.Margin.VerticalThickness);

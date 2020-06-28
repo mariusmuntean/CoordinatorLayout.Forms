@@ -6,7 +6,7 @@
              xmlns:xamarinForms="clr-namespace:CoordinatorLayout.XamarinForms;assembly=CoordinatorLayout.XamarinForms"
              xmlns:helpers="clr-namespace:CoordinatorLayout.XamarinForms.Sample.Helpers;assembly=CoordinatorLayout.XamarinForms.Sample"
              x:Class="CoordinatorLayout.XamarinForms.Sample.Blinkist.BlinkistPage"
-             NavigationPage.HasNavigationBar="True"
+             NavigationPage.HasNavigationBar="False"
              ios:Page.UseSafeArea="true">
     <ContentPage.Resources>
         <Style TargetType="Label">
@@ -96,11 +96,13 @@ Section 1.10.32 of &quot;de Finibus Bonorum et Malorum&quot;, written by Cicero 
 
         <!-- X -->
         <ImageButton WidthRequest="30" HeightRequest="30" HorizontalOptions="Start" VerticalOptions="Start" Margin="10"
+                     BackgroundColor="Transparent"
                      Source="{helpers:ImageResource CoordinatorLayout.XamarinForms.Sample.Images.x.png}"
                      Clicked="ImageButton_OnClicked" />
 
         <!-- + -->
         <ImageButton WidthRequest="30" HeightRequest="30" HorizontalOptions="End" VerticalOptions="Start" Margin="10"
+                     BackgroundColor="Transparent"
                      Source="{helpers:ImageResource CoordinatorLayout.XamarinForms.Sample.Images.plus.png}" />
 
     </Grid>
