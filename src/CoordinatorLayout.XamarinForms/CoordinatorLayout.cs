@@ -103,6 +103,9 @@ namespace CoordinatorLayout.XamarinForms
             {
                 // Replace only the bottom view (and its container)
                 ReplaceBottomView();
+                
+                // After adding the BottomView make sure to re-add the BottomView so that it sits on top :D 
+                ReplaceActionView();
             }
 
             if (propertyName == ActionViewProperty.PropertyName)
@@ -167,7 +170,7 @@ namespace CoordinatorLayout.XamarinForms
                     Content = BottomView,
                     InputTransparent = true,
                     CascadeInputTransparent = true,
-                    Margin = new Thickness(5)
+                    Margin = new Thickness(0)
                 };
                 _bottomViewContainer.Scrolled += BottomViewContainerOnScrolled;
 
@@ -267,6 +270,12 @@ namespace CoordinatorLayout.XamarinForms
 
         private void ShowActionView()
         {
+            // Nothing to do as long as no ActionView/Container present
+            if (_actionViewContainer?.Content == null)
+            {
+                return;
+            }
+
             _actionViewShowing = true;
             _actionViewContainer.Content.FadeTo(1.0d, easing: Easing.CubicInOut);
             _actionViewContainer.Content.ScaleTo(1.0d, easing: Easing.CubicInOut);

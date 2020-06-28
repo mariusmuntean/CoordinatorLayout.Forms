@@ -6,7 +6,7 @@
              xmlns:xamarinForms="clr-namespace:CoordinatorLayout.XamarinForms;assembly=CoordinatorLayout.XamarinForms"
              xmlns:helpers="clr-namespace:CoordinatorLayout.XamarinForms.Sample.Helpers;assembly=CoordinatorLayout.XamarinForms.Sample"
              x:Class="CoordinatorLayout.XamarinForms.Sample.Blinkist.BlinkistPage"
-             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasNavigationBar="True"
              ios:Page.UseSafeArea="true">
     <ContentPage.Resources>
         <Style TargetType="Label">
@@ -21,25 +21,35 @@
                                         ExpansionEventHandler="OnCoordinatorLayoutOnExpansionEventHandler"
                                         ScrollEventHandler="OnCoordinatorLayoutOnScrollEventHandler"
                                         ProportionalTopViewHeightMax="0.4"
-                                        ProportionalTopViewHeightMin="0.1"
+                                        ProportionalTopViewHeightMin="0.11"
                                         ProportionalSnapHeight="0.3"
                                         ShouldSnap="true"
                                         ShouldKineticScroll="true"
                                         ShouldExpandFromKineticScroll="true"
-                                        AutohideActionView="true">
+                                        AutohideActionView="False">
 
             <!-- The TopView expands and collapses -->
             <xamarinForms:CoordinatorLayout.TopView>
-                <Grid BackgroundColor="Aqua">
-                    <Image x:Name="_image"
+                <Grid BackgroundColor="SteelBlue">
+                    <Image x:Name="BackgroundImage"
                            Margin="0"
                            Source="{helpers:ImageResource CoordinatorLayout.XamarinForms.Sample.Images.wrench.jpg}"
                            Aspect="AspectFill" />
-                    <StackLayout VerticalOptions="Center" Margin="10">
+                    <StackLayout x:Name="MainTitle"
+                                 VerticalOptions="End" 
+                                 Margin="10,0,0,60">
                         <Label Text="Tim Ferris" TextColor="White" FontAttributes="Bold" />
                         <Label Text="Tools of Titans" TextColor="White" FontAttributes="Bold" FontSize="34" />
-                        <BoxView WidthRequest="120" HeightRequest="5" Color="YellowGreen" HorizontalOptions="Start" />
+                        <BoxView WidthRequest="70" HeightRequest="5" Color="YellowGreen" HorizontalOptions="Start" />
                     </StackLayout>
+                    <Label x:Name="SecondaryTitle"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           Opacity="0.0"
+                           Margin="0,0,0,20"
+                           Text="Tool of Titans"
+                           FontAttributes="Bold"
+                           FontSize="14"></Label>
                 </Grid>
 
             </xamarinForms:CoordinatorLayout.TopView>
@@ -47,31 +57,30 @@
             <!-- The ActionView is shown right between the TopView and BottomView. It usually contains views that trigger actions -->
             <xamarinForms:CoordinatorLayout.ActionView>
 
-                <Frame HeightRequest="40" VerticalOptions="Center" Padding="0" Margin="15,0" CornerRadius="20">
+                <Frame x:Name="ActionFrame"
+                       HeightRequest="40"
+                       VerticalOptions="Center"
+                       Padding="0"
+                       Margin="15,0"
+                       CornerRadius="20">
                     <Grid BackgroundColor="DarkSlateBlue">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <StackLayout Grid.Column="0" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                            <Label Text="X" FontAttributes="Bold" />
-                            <Label Text="Read" FontAttributes="Bold" />
-                        </StackLayout>
+                        <Button Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" Text="Read" TextColor="White" FontSize="Body" />
 
-                        <BoxView Grid.Column="1" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Color="#55FFFFFF" WidthRequest="2" />
+                        <BoxView Grid.Column="1" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Color="#11FFFFFF" WidthRequest="2" />
 
-                        <StackLayout Grid.Column="2" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                            <Label Text="X" FontAttributes="Bold" />
-                            <Label Text="Listen" FontAttributes="Bold" />
-                        </StackLayout>
+                        <Button Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" Text="Listen" TextColor="White" FontSize="Body" />
                     </Grid>
                 </Frame>
             </xamarinForms:CoordinatorLayout.ActionView>
 
             <!-- The BottomView is shown below the TopView and might scroll if its content doesn't fit into the available space -->
             <xamarinForms:CoordinatorLayout.BottomView>
-                <ScrollView Orientation="Vertical" BackgroundColor="SteelBlue" Margin="-5" Padding="10">
+                <ScrollView Orientation="Vertical" BackgroundColor="SteelBlue" Padding="10,30,10,10">
                     <Label MaxLines="1000"
                            Text="The standard Lorem Ipsum passage, used since the 1500s
 &quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&quot;
@@ -80,18 +89,18 @@ Section 1.10.32 of &quot;de Finibus Bonorum et Malorum&quot;, written by Cicero 
 &quot;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?&quot;
 
 1914 translation by H. Rackham
-&quot;But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?&quot;"></Label>
+&quot;But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?&quot;" />
                 </ScrollView>
             </xamarinForms:CoordinatorLayout.BottomView>
         </xamarinForms:CoordinatorLayout>
 
         <!-- X -->
-        <ImageButton WidthRequest="40" HeightRequest="40" HorizontalOptions="Start" VerticalOptions="Start" Margin="10"
+        <ImageButton WidthRequest="30" HeightRequest="30" HorizontalOptions="Start" VerticalOptions="Start" Margin="10"
                      Source="{helpers:ImageResource CoordinatorLayout.XamarinForms.Sample.Images.x.png}"
-                     Clicked="ImageButton_OnClicked"/>
+                     Clicked="ImageButton_OnClicked" />
 
         <!-- + -->
-        <ImageButton WidthRequest="40" HeightRequest="40" HorizontalOptions="End" VerticalOptions="Start" Margin="10"
+        <ImageButton WidthRequest="30" HeightRequest="30" HorizontalOptions="End" VerticalOptions="Start" Margin="10"
                      Source="{helpers:ImageResource CoordinatorLayout.XamarinForms.Sample.Images.plus.png}" />
 
     </Grid>
