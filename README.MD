@@ -55,3 +55,8 @@ If YouTube is your thing: https://youtu.be/GIpSPpPFXtg
 As usual you can do everything you want with my code. Have fun!
 
 Have a question? Tweet at me: https://twitter.com/MunteanMarius
+
+## Thanks to
+[VladislavAntonyuk](https://github.com/VladislavAntonyuk)
+
+[MrClan](https://github.com/MrClan)

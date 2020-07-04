@@ -20,7 +20,7 @@
         <DefineConstants>$(DefineConstants);</DefineConstants>
 
         <PackOnBuild>true</PackOnBuild>
-        <PackageVersion>1.2</PackageVersion>
+        <PackageVersion>1.2.1</PackageVersion>
         <Authors>Marius Muntean</Authors>
         <Copyright>2020</Copyright>
         <Owners>Marius Muntean</Owners>
