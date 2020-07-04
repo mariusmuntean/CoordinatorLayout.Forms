@@ -103,7 +103,7 @@ namespace CoordinatorLayout.XamarinForms
             {
                 // Replace only the bottom view (and its container)
                 ReplaceBottomView();
-                
+
                 // After adding the BottomView make sure to re-add the BottomView so that it sits on top :D 
                 ReplaceActionView();
             }
@@ -145,7 +145,7 @@ namespace CoordinatorLayout.XamarinForms
 
                 // remember the new action view
                 _actionView = ActionView;
-                
+
                 // handle the new action view 
                 ShowHideActionView();
             }
@@ -214,7 +214,7 @@ namespace CoordinatorLayout.XamarinForms
 
                 // remember the new top view
                 _topView = TopView;
-                
+
                 // run the height-changed handler
                 OnTopViewHeightChanged();
             }
@@ -250,13 +250,13 @@ namespace CoordinatorLayout.XamarinForms
             {
                 return;
             }
-            
+
             // If autohide isn't desired, then don't do anything
             if (!AutohideActionView)
             {
                 return;
             }
-            
+
             if (_proportionalTopViewHeight <= _proportionalTopViewHeightMin && _actionViewShowing)
             {
                 HideActionView();
@@ -315,11 +315,11 @@ namespace CoordinatorLayout.XamarinForms
 
             if (e.StatusType == GestureStatus.Running && _topView != null && _bottomView != null)
             {
-                await HandlePan(PanSource.PanGesture, _bottomViewPanDelta);
+                HandlePan(PanSource.PanGesture, _bottomViewPanDelta);
             }
         }
 
-        private async Task<bool> HandlePan(PanSource panSource, double panDelta)
+        private bool HandlePan(PanSource panSource, double panDelta)
         {
             // Stop the kinetic scrolling while the finger is on the screen
             if (panSource != PanSource.KineticScroll)
@@ -333,7 +333,7 @@ namespace CoordinatorLayout.XamarinForms
 
                 bottomViewScrollY = Clamp(bottomViewScrollY, 0.0d, _bottomViewContainer.Content.Height - _bottomViewContainer.Height);
                 DebugWriteLine($"Scrolling up to: {bottomViewScrollY}");
-                await _bottomViewContainer.ScrollToAsync(0.0d, bottomViewScrollY, false);
+                _ = _bottomViewContainer.ScrollToAsync(0.0d, bottomViewScrollY, false);
                 return true;
             }
             else if (_bottomViewContainer.ScrollY > 0.0d && _bottomViewPanDirection == Direction.down && _proportionalTopViewHeight <= _proportionalTopViewHeightMin)
@@ -342,7 +342,7 @@ namespace CoordinatorLayout.XamarinForms
 
                 bottomViewScrollY = Clamp(bottomViewScrollY, 0.0d, _bottomViewContainer.Content.Height - _bottomViewContainer.Height);
                 DebugWriteLine($"Scrolling down to: {bottomViewScrollY}");
-                await _bottomViewContainer.ScrollToAsync(0.0d, bottomViewScrollY, false);
+                _ = _bottomViewContainer.ScrollToAsync(0.0d, bottomViewScrollY, false);
                 return true;
             }
             else
@@ -353,7 +353,7 @@ namespace CoordinatorLayout.XamarinForms
                 {
                     return false;
                 }
-                
+
                 // Don't expand/collapse during kinetic scrolling if not desired
                 if (panSource == PanSource.KineticScroll && !ShouldExpandFromKineticScroll)
                 {
@@ -405,7 +405,7 @@ namespace CoordinatorLayout.XamarinForms
             {
                 DebugWriteLine($"Kinetic: d={d}   d1={d1}");
                 // _bottomViewContainer.ScrollToAsync(0, _bottomViewContainer.ScrollY + (Math.Sign(-d) * d1), false);
-                var handled = HandlePan(PanSource.KineticScroll, Math.Sign(d) * d1).GetAwaiter().GetResult();
+                var handled = HandlePan(PanSource.KineticScroll, Math.Sign(d) * d1);
 
                 // Returning true means "keep going"
                 return handled;
