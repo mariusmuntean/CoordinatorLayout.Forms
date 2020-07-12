@@ -26,7 +26,7 @@
         <Owners>Marius Muntean</Owners>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/mariusmuntean/CoordinatorLayout.Forms</PackageProjectUrl>
-        <PackageReleaseNotes>Added the option to choose the initial expansion state, i.e either Expanded or Collapsed</PackageReleaseNotes>
+        <PackageReleaseNotes>Enabled touch support for the bottom view</PackageReleaseNotes>
         <PackageTags>xamarinforms customcontrol coordinatorlayout</PackageTags>
         <Title>CoordinatorLayout.XamarinForms</Title>
         <Description>A custom control for Xamarin.Forms, that shows an expanding top view and a scrollable bottom view.</Description>
