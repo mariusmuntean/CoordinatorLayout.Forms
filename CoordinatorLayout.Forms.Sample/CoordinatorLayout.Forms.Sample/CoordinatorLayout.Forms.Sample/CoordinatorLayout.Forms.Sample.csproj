@@ -34,11 +34,18 @@
       <EmbeddedResource Include="Images\x.png" />
       <None Remove="Images\wrench.jpg" />
       <EmbeddedResource Include="Images\wrench.jpg" />
+      <EmbeddedResource Update="Videos\VideosPage.xaml">
+        <SubType>Designer</SubType>
+        <Generator></Generator>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
       <Compile Update="Blinkist\BlinkistPage.xaml.cs">
         <DependentUpon>BlinkistPage.xaml</DependentUpon>
+      </Compile>
+      <Compile Update="Videos\VideosPage.xaml.cs">
+        <DependentUpon>VideosPage.xaml</DependentUpon>
       </Compile>
     </ItemGroup>
 </Project>

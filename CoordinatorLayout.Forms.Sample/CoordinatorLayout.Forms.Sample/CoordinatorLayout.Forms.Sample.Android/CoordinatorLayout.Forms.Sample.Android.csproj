@@ -14,8 +14,9 @@
         <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
         <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
         <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-        <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
         <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
+        <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <DebugSymbols>true</DebugSymbols>
@@ -26,7 +27,6 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
         <AndroidLinkMode>None</AndroidLinkMode>
-        <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <DebugSymbols>true</DebugSymbols>
@@ -39,7 +39,6 @@
         <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
         <AotAssemblies>true</AotAssemblies>
         <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
-        <AndroidSupportedAbis>armeabi-v7a;arm64-v8a;x86;x86_64</AndroidSupportedAbis>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="Mono.Android" />
@@ -57,7 +56,11 @@
         <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4" Version="1.0.0.1" />
         <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0.1" />
         <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.1.0.1" />
-    <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.6.1" /></ItemGroup>
+        <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.6.1" />
+        <PackageReference Include="Xamarin.AndroidX.AppCompat.Resources">
+          <Version>1.1.0.1</Version>
+        </PackageReference>
+    </ItemGroup>
     <ItemGroup>
         <Compile Include="MainActivity.cs" />
         <Compile Include="Resources\Resource.Designer.cs" />

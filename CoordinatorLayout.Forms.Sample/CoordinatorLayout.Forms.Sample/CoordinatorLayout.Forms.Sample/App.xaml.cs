@@ -9,6 +9,8 @@ namespace CoordinatorLayout.XamarinForms.Sample
     {
         public App()
         {
+            Device.SetFlags(new string[]{ "MediaElement_Experimental" });
+            
             InitializeComponent();
             MainPage = new NavigationPage(new MainPage());
         }

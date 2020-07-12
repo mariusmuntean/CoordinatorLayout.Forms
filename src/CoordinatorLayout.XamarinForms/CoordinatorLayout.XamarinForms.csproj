@@ -1,6 +1,6 @@
 <Project Sdk="MSBuild.Sdk.Extras/2.0.54">
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;Xamarin.iOS10;MonoAndroid90;</TargetFrameworks>
+        <TargetFrameworks>netstandard2.0;Xamarin.iOS10;MonoAndroid90;MonoAndroid10.0;</TargetFrameworks>
 
         <!--Assembly and Namespace info -->
         <AssemblyName>CoordinatorLayout.XamarinForms</AssemblyName>
@@ -81,6 +81,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Xamarin.Forms" Version="4.5.0.725" />
+        <PackageReference Include="Xamarin.Forms" Version="4.7.0.1080" />
     </ItemGroup>
 </Project>
