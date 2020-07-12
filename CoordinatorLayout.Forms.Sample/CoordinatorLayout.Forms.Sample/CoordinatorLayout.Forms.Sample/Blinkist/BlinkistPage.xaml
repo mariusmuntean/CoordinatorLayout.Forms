@@ -63,8 +63,9 @@
                        HeightRequest="40"
                        Padding="0"
                        Margin="15,0"
-                       CornerRadius="20">
-                    <Grid BackgroundColor="DarkSlateBlue">
+                       CornerRadius="20"
+                       BackgroundColor="DarkSlateBlue">
+                    <Grid IsClippedToBounds="True">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
