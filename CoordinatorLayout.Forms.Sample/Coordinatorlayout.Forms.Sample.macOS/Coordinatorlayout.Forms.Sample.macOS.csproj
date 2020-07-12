@@ -71,7 +71,7 @@
         <InterfaceDefinition Include="Main.storyboard" />
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="Xamarin.Forms" Version="4.5.0.657" />
+      <PackageReference Include="Xamarin.Forms" Version="4.7.0.1080" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\..\src\CoordinatorLayout.XamarinForms\CoordinatorLayout.XamarinForms.csproj">

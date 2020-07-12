@@ -14,7 +14,10 @@ namespace CoordinatorLayout.XamarinForms.Renderers
             base.OnElementChanged(e);
 
             // ToDo: remove it at some point
-            // Bounces = false;
+            Bounces = false;
+
+            ScrollEnabled = false;
         }
+
     }
 }

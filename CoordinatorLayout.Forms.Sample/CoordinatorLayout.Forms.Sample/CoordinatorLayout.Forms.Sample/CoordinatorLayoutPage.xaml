@@ -43,9 +43,7 @@
 
             <!-- The BottomView is shown below the TopView and might scroll if its content doesn't fit into the available space -->
             <xamarinForms:CoordinatorLayout.BottomView>
-                <StackLayout x:Name="_stackLayout"
-                             InputTransparent="True"
-                             CascadeInputTransparent="True" />
+                <StackLayout x:Name="_stackLayout" />
             </xamarinForms:CoordinatorLayout.BottomView>
 
             <!-- The ActionView is shown right between the TopView and BottomView. It usually contains views that trigger actions -->

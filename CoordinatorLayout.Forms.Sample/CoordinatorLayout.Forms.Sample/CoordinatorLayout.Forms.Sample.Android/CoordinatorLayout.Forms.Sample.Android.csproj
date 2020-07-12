@@ -49,15 +49,15 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Xamarin.AndroidX.Browser" Version="1.2.0" />
-        <PackageReference Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="2.2.0" />
-        <PackageReference Include="Xamarin.Forms" Version="4.5.0.657" />
-        <PackageReference Include="Xamarin.Google.Android.Material" Version="1.0.0" />
-        <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.1.0" />
-        <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4" Version="1.0.0" />
-        <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0" />
-        <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.1.0" />
-    <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.5" /></ItemGroup>
+        <PackageReference Include="Xamarin.AndroidX.Browser" Version="1.2.0.1" />
+        <PackageReference Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="2.2.0.1" />
+        <PackageReference Include="Xamarin.Forms" Version="4.7.0.1080" />
+        <PackageReference Include="Xamarin.Google.Android.Material" Version="1.0.0.1" />
+        <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.1.0.1" />
+        <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4" Version="1.0.0.1" />
+        <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0.1" />
+        <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.1.0.1" />
+    <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.6.1" /></ItemGroup>
     <ItemGroup>
         <Compile Include="MainActivity.cs" />
         <Compile Include="Resources\Resource.Designer.cs" />
@@ -76,7 +76,7 @@
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\..\src\CoordinatorLayout.XamarinForms\CoordinatorLayout.XamarinForms.csproj">
-          <Project>{4C3EDF30-DF01-4069-A85C-3C8763913694}</Project>
+          <Project>{AFF07817-4810-48CD-8CC7-FC405123C1FA}</Project>
           <Name>CoordinatorLayout.XamarinForms</Name>
         </ProjectReference>
         <ProjectReference Include="..\CoordinatorLayout.Forms.Sample\CoordinatorLayout.Forms.Sample.csproj">

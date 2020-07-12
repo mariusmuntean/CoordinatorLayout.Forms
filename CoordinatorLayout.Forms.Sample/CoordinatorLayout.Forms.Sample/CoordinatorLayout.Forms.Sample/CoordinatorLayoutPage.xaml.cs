@@ -29,8 +29,7 @@ namespace CoordinatorLayout.XamarinForms.Sample
             {
                 _stackLayout.Children.Add(new BoxView
                 {
-                    Color = new Color(rand.NextDouble(), rand.NextDouble(), rand.NextDouble()).WithLuminosity(0.8).WithSaturation(0.8),
-                    InputTransparent = true
+                    Color = new Color(rand.NextDouble(), rand.NextDouble(), rand.NextDouble()).WithLuminosity(0.8).WithSaturation(0.8)
                 });
             }
         }

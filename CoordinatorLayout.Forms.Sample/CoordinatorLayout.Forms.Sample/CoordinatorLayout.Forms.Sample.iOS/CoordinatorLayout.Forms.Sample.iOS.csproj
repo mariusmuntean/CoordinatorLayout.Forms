@@ -109,11 +109,11 @@
         <Reference Include="Xamarin.iOS" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Xamarin.Forms" Version="4.5.0.657" />
+        <PackageReference Include="Xamarin.Forms" Version="4.7.0.1080" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\..\src\CoordinatorLayout.XamarinForms\CoordinatorLayout.XamarinForms.csproj">
-          <Project>{4c3edf30-df01-4069-a85c-3c8763913694}</Project>
+          <Project>{AFF07817-4810-48CD-8CC7-FC405123C1FA}</Project>
           <Name>CoordinatorLayout.XamarinForms</Name>
         </ProjectReference>
         <ProjectReference Include="..\CoordinatorLayout.Forms.Sample\CoordinatorLayout.Forms.Sample.csproj">

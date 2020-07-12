@@ -59,5 +59,10 @@ namespace CoordinatorLayout.XamarinForms.Sample.Blinkist
         {
             await Navigation.PopAsync(true);
         }
+
+        private void Button_OnClicked(object sender, EventArgs e)
+        {
+            Console.Write("wrher");
+        }
     }
 }

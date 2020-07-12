@@ -6,7 +6,7 @@
              xmlns:xamarinForms="clr-namespace:CoordinatorLayout.XamarinForms;assembly=CoordinatorLayout.XamarinForms"
              xmlns:helpers="clr-namespace:CoordinatorLayout.XamarinForms.Sample.Helpers;assembly=CoordinatorLayout.XamarinForms.Sample"
              x:Class="CoordinatorLayout.XamarinForms.Sample.Blinkist.BlinkistPage"
-             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasNavigationBar="True"
              ios:Page.UseSafeArea="true">
     <ContentPage.Resources>
         <Style TargetType="Label">
@@ -23,6 +23,7 @@
                                         ProportionalTopViewHeightMax="0.4"
                                         ProportionalTopViewHeightMin="0.11"
                                         ProportionalSnapHeight="0.3"
+                                        ProportionalActionViewContainerHeight="0.1"
                                         ShouldSnap="true"
                                         ShouldKineticScroll="true"
                                         ShouldExpandFromKineticScroll="true"
@@ -58,8 +59,8 @@
             <xamarinForms:CoordinatorLayout.ActionView>
 
                 <Frame x:Name="ActionFrame"
-                       HeightRequest="40"
                        VerticalOptions="Center"
+                       HeightRequest="40"
                        Padding="0"
                        Margin="15,0"
                        CornerRadius="20">
@@ -69,19 +70,26 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" Text="Read" TextColor="White" FontSize="Body" />
+                        <Button Grid.Column="0" HorizontalOptions="Center" 
+                                VerticalOptions="Center" 
+                                BackgroundColor="Transparent" Text="Read" TextColor="White" FontSize="Body" />
 
-                        <BoxView Grid.Column="1" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Color="#11FFFFFF" WidthRequest="2" />
+                        <BoxView Grid.Column="1" VerticalOptions="CenterAndExpand" 
+                                 HorizontalOptions="Center" Color="#11FFFFFF" WidthRequest="2" />
 
-                        <Button Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" Text="Listen" TextColor="White" FontSize="Body" />
+                        <Button Grid.Column="2" HorizontalOptions="Center" 
+                                VerticalOptions="Center" BackgroundColor="DarkSlateBlue" 
+                                Text="Listen" TextColor="White" FontSize="Body"
+                                Clicked="Button_OnClicked"/>
                     </Grid>
                 </Frame>
             </xamarinForms:CoordinatorLayout.ActionView>
 
             <!-- The BottomView is shown below the TopView and might scroll if its content doesn't fit into the available space -->
             <xamarinForms:CoordinatorLayout.BottomView>
-                <ScrollView Orientation="Vertical" BackgroundColor="SteelBlue" Padding="10,30,10,10">
+                <Grid>
                     <Label MaxLines="1000"
+                           BackgroundColor="SteelBlue" Padding="10,30,10,10"
                            Text="The standard Lorem Ipsum passage, used since the 1500s
 &quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&quot;
 
@@ -90,7 +98,7 @@ Section 1.10.32 of &quot;de Finibus Bonorum et Malorum&quot;, written by Cicero 
 
 1914 translation by H. Rackham
 &quot;But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?&quot;" />
-                </ScrollView>
+                </Grid>
             </xamarinForms:CoordinatorLayout.BottomView>
         </xamarinForms:CoordinatorLayout>
 

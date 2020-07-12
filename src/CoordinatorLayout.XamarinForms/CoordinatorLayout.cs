@@ -133,7 +133,9 @@ namespace CoordinatorLayout.XamarinForms
                     Padding = new Thickness(0),
                     Margin = new Thickness(0),
                     IsClippedToBounds = false,
-                    Content = ActionView
+                    Content = ActionView,
+                    InputTransparent = true,
+                    CascadeInputTransparent = false
                 };
 
                 _relativeLayout.Children.Add(_actionViewContainer,
@@ -168,8 +170,8 @@ namespace CoordinatorLayout.XamarinForms
                 _bottomViewContainer = new BottomViewScrollView
                 {
                     Content = BottomView,
-                    InputTransparent = true,
-                    CascadeInputTransparent = true,
+                    // InputTransparent = false,
+                    // CascadeInputTransparent = false,
                     Margin = new Thickness(0)
                 };
                 _bottomViewContainer.Scrolled += BottomViewContainerOnScrolled;
@@ -288,7 +290,7 @@ namespace CoordinatorLayout.XamarinForms
             _actionViewContainer.Content.ScaleTo(0.0d, easing: Easing.CubicInOut);
         }
 
-        private async void BottomViewPanGestureRecognizerOnPanUpdated(object sender, PanUpdatedEventArgs e)
+        private void BottomViewPanGestureRecognizerOnPanUpdated(object sender, PanUpdatedEventArgs e)
         {
             switch (e.StatusType)
             {
