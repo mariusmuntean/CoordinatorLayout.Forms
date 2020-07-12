@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace CoordinatorLayout.XamarinForms
@@ -170,8 +169,6 @@ namespace CoordinatorLayout.XamarinForms
                 _bottomViewContainer = new BottomViewScrollView
                 {
                     Content = BottomView,
-                    // InputTransparent = false,
-                    // CascadeInputTransparent = false,
                     Margin = new Thickness(0)
                 };
                 _bottomViewContainer.Scrolled += BottomViewContainerOnScrolled;

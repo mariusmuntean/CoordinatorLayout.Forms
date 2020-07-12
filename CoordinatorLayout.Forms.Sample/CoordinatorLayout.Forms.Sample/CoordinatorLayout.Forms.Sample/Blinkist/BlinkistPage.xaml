@@ -37,7 +37,7 @@
                            Source="{helpers:ImageResource CoordinatorLayout.XamarinForms.Sample.Images.wrench.jpg}"
                            Aspect="AspectFill" />
                     <StackLayout x:Name="MainTitle"
-                                 VerticalOptions="End" 
+                                 VerticalOptions="End"
                                  Margin="10,0,0,60">
                         <Label Text="Tim Ferris" TextColor="White" FontAttributes="Bold" />
                         <Label Text="Tools of Titans" TextColor="White" FontAttributes="Bold" FontSize="34" />
@@ -50,7 +50,7 @@
                            Margin="0,0,0,20"
                            Text="Tool of Titans"
                            FontAttributes="Bold"
-                           FontSize="14"></Label>
+                           FontSize="14" />
                 </Grid>
 
             </xamarinForms:CoordinatorLayout.TopView>
@@ -70,27 +70,26 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" HorizontalOptions="Center" 
-                                VerticalOptions="Center" 
+                        <Button Grid.Column="0" HorizontalOptions="Center"
+                                VerticalOptions="Center"
                                 BackgroundColor="Transparent" Text="Read" TextColor="White" FontSize="Body" />
 
-                        <BoxView Grid.Column="1" VerticalOptions="CenterAndExpand" 
+                        <BoxView Grid.Column="1" VerticalOptions="CenterAndExpand"
                                  HorizontalOptions="Center" Color="#11FFFFFF" WidthRequest="2" />
 
-                        <Button Grid.Column="2" HorizontalOptions="Center" 
-                                VerticalOptions="Center" BackgroundColor="DarkSlateBlue" 
+                        <Button Grid.Column="2" HorizontalOptions="Center"
+                                VerticalOptions="Center" BackgroundColor="DarkSlateBlue"
                                 Text="Listen" TextColor="White" FontSize="Body"
-                                Clicked="Button_OnClicked"/>
+                                Clicked="Button_OnClicked" />
                     </Grid>
                 </Frame>
             </xamarinForms:CoordinatorLayout.ActionView>
 
             <!-- The BottomView is shown below the TopView and might scroll if its content doesn't fit into the available space -->
             <xamarinForms:CoordinatorLayout.BottomView>
-                <Grid>
-                    <Label MaxLines="1000"
-                           BackgroundColor="SteelBlue" Padding="10,30,10,10"
-                           Text="The standard Lorem Ipsum passage, used since the 1500s
+                <Label MaxLines="1000"
+                       BackgroundColor="SteelBlue" Padding="10,30,10,10"
+                       Text="The standard Lorem Ipsum passage, used since the 1500s
 &quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&quot;
 
 Section 1.10.32 of &quot;de Finibus Bonorum et Malorum&quot;, written by Cicero in 45 BC
@@ -98,7 +97,6 @@ Section 1.10.32 of &quot;de Finibus Bonorum et Malorum&quot;, written by Cicero 
 
 1914 translation by H. Rackham
 &quot;But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?&quot;" />
-                </Grid>
             </xamarinForms:CoordinatorLayout.BottomView>
         </xamarinForms:CoordinatorLayout>
 
