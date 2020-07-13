@@ -15,6 +15,7 @@ namespace CoordinatorLayout.XamarinForms.Sample.Android
             
             base.OnCreate(savedInstanceState);
             Forms.Init(this, savedInstanceState);
+            FormsMaterial.Init(this, savedInstanceState);
             LoadApplication(new App());
         }
     }

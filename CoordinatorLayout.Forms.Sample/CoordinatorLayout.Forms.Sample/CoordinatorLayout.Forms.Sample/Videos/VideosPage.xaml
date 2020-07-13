@@ -4,15 +4,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xamarinForms="clr-namespace:CoordinatorLayout.XamarinForms;assembly=CoordinatorLayout.XamarinForms"
              xmlns:helpers="clr-namespace:CoordinatorLayout.XamarinForms.Sample.Helpers;assembly=CoordinatorLayout.XamarinForms.Sample"
-             x:Class="CoordinatorLayout.XamarinForms.Sample.Videos.VideosPage">
+             x:Class="CoordinatorLayout.XamarinForms.Sample.Videos.VideosPage"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False"
+             Visual="Material"
+             BackgroundColor="#282828">
 
 
     <!-- COORDINATOR -->
     <xamarinForms:CoordinatorLayout x:Name="_coordinatorLayout"
-                                    Grid.Column="0"
                                     InitialExpansionState="Expanded"
-                                    ExpansionEventHandler="OnCoordinatorLayoutOnExpansionEventHandler"
-                                    ScrollEventHandler="OnCoordinatorLayoutOnScrollEventHandler"
                                     ProportionalTopViewHeightMax="0.4"
                                     ProportionalTopViewHeightMin="0.11"
                                     ProportionalSnapHeight="0.3"
@@ -28,19 +29,14 @@
             <MediaElement x:Name="mediaElement"
                           AutoPlay="False"
                           VerticalOptions="Fill"
-                          ShowsPlaybackControls="True" />
+                          ShowsPlaybackControls="False" />
 
         </xamarinForms:CoordinatorLayout.TopView>
-
-        <!-- The ActionView is shown right between the TopView and BottomView. It usually contains views that trigger actions -->
-        <!-- <xamarinForms:CoordinatorLayout.ActionView> -->
-        <!-- -->
-        <!-- -->
-        <!-- </xamarinForms:CoordinatorLayout.ActionView> -->
 
         <!-- The BottomView is shown below the TopView and might scroll if its content doesn't fit into the available space -->
         <xamarinForms:CoordinatorLayout.BottomView>
             <StackLayout>
+                <Label Text="Other Videos" TextColor="DarkGray" FontSize="Subtitle" />
                 <CollectionView x:Name="collectionView"
                                 BackgroundColor="White"
                                 HeightRequest="120" VerticalOptions="Start"
@@ -70,7 +66,7 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
                 <Label MaxLines="1000"
-                       BackgroundColor="SteelBlue" Padding="10,30,10,10"
+                       BackgroundColor="DeepSkyBlue" Padding="10,30,10,10"
                        Text="The standard Lorem Ipsum passage, used since the 1500s
 &quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&quot;
 

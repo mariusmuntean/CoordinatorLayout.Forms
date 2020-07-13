@@ -110,6 +110,7 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Xamarin.Forms" Version="4.7.0.1080" />
+        <PackageReference Include="Xamarin.Forms.Visual.Material" Version="4.7.0.1080" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\..\src\CoordinatorLayout.XamarinForms\CoordinatorLayout.XamarinForms.csproj">

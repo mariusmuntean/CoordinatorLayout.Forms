@@ -6,7 +6,9 @@
              xmlns:xamarinForms="clr-namespace:CoordinatorLayout.XamarinForms;assembly=CoordinatorLayout.XamarinForms"
              xmlns:helpers="clr-namespace:CoordinatorLayout.XamarinForms.Sample.Helpers;assembly=CoordinatorLayout.XamarinForms.Sample"
              x:Class="CoordinatorLayout.XamarinForms.Sample.Blinkist.BlinkistPage"
-             NavigationPage.HasNavigationBar="True"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False"
+             Visual="Material"
              ios:Page.UseSafeArea="true">
     <ContentPage.Resources>
         <Style TargetType="Label">
