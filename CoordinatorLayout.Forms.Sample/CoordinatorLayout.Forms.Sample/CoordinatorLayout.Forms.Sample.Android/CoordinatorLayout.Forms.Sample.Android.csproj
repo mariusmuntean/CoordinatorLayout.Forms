@@ -39,6 +39,8 @@
         <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
         <AotAssemblies>true</AotAssemblies>
         <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
+        <EnableLLVM>true</EnableLLVM>
+        <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="Mono.Android" />

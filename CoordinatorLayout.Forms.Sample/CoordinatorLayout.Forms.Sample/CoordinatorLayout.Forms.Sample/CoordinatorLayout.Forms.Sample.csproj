@@ -39,6 +39,8 @@
         <SubType>Designer</SubType>
         <Generator></Generator>
       </EmbeddedResource>
+      <None Remove="Resources\materialdesignicons-webfont.ttf" />
+      <EmbeddedResource Include="Resources\materialdesignicons-webfont.ttf" />
     </ItemGroup>
 
     <ItemGroup>
