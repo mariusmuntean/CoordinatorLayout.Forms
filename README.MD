@@ -14,7 +14,7 @@ Here's a quick rundown of the control's features:
 
 | Package                        | Version                                                                                                                                      | Dependencies                                                                                                     |
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| CoordinatorLayout.XamarinForms | [![Nuget](https://img.shields.io/nuget/vpre/CoordinatorLayout.XamarinForms)](https://www.nuget.org/packages/CoordinatorLayout.XamarinForms/) | [![Nuget](https://img.shields.io/badge/Xamarin.Forms-v4.5-green)](https://www.nuget.org/packages/Xamarin.Forms/) |
+| CoordinatorLayout.XamarinForms | [![Nuget](https://img.shields.io/nuget/vpre/CoordinatorLayout.XamarinForms)](https://www.nuget.org/packages/CoordinatorLayout.XamarinForms/) | [![Nuget](https://img.shields.io/badge/Xamarin.Forms-v4.7-green)](https://www.nuget.org/packages/Xamarin.Forms/) |
 
 Add the NuGet package to the shared project (.Net Standard) and to the platform specific projects (e.g. Android and iOS).
 
@@ -51,6 +51,10 @@ In the media folder there's a video of the sample project.
 ![Sample](media/CoordinatorLayout.m4v)
 
 If YouTube is your thing: https://youtu.be/GIpSPpPFXtg
+
+### Step by step guide
+
+I've written a Medium article that guides you through the process of creating one of the samples https://medium.com/@marius.munteann/coordinator-layout-with-xamarin-forms-f07b621eb53f
 
 As usual you can do everything you want with my code. Have fun!
 
